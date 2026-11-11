@@ -13,7 +13,7 @@ final class DoctorCommand implements Command
 {
     public function usage(): string
     {
-        return 'pilot doctor';
+        return 'pa doctor';
     }
 
     public function execute(Context $context, array $arguments): int

@@ -14,7 +14,7 @@ composer test
 git status --short
 ```
 
-Review GitHub Actions for the commit to be tagged. Require passing available matrix jobs before calling it a verified stable release. Review `docs/verification.md` for local evidence and platform limits. Update the changelog from release candidate to the release date and set `src/Version.php` to the release version. Do not put a `version` field in `composer.json`; Composer reads Git tags.
+Review GitHub Actions for the commit to be tagged. Review the available local and hosted results before release; do not represent a version tag as evidence that unrun platform checks passed. Review `docs/verification.md` for local evidence and platform limits. Update the changelog from release candidate to the release date and set `src/Version.php` to the release version. Do not put a `version` field in `composer.json`; Composer reads Git tags.
 
 ## 2. Push the source
 
@@ -27,13 +27,13 @@ If authentication fails, authenticate GitHub CLI (`gh auth login`) or configure 
 
 GitHub and Packagist are separate services. A successful GitHub push alone does not register the Composer name on Packagist.
 
-## Release candidate
+## Historical release candidate
 
-The initial renamed package is published as `v1.0.0-rc.1`, with `src/Version.php` set to `1.0.0-rc.1`. A prerelease provides downloadable source without claiming the unavailable hosted platform checks have passed. The release workflow marks tags containing a hyphen as prereleases. GitHub VCS consumers can install `dev-main` or explicitly require `a4hmad1/artisan-pilot:1.0.0-rc.1` after the tag is published.
+The earlier renamed package was published as `v1.0.0-rc.1`, with `src/Version.php` set to `1.0.0-rc.1`. A prerelease provides downloadable source without claiming the unavailable hosted platform checks have passed. The release workflow marks tags containing a hyphen as prereleases. GitHub VCS consumers can install `dev-main` or explicitly require `a4hmad1/artisan-pilot:1.0.0-rc.1` after the tag is published.
 
-## 3. Make the first stable tag
+## 3. Publish a stable version for one-command installation
 
-After the checks pass and the changelog is final:
+Version 1.0.0 restores the original shortcut-first workflow. After the applicable checks pass and the changelog is final:
 
 ```bash
 git tag -a v1.0.0 -m "Artisan Pilot 1.0.0"
@@ -67,8 +67,8 @@ composer require --dev a4hmad1/artisan-pilot:^1.0
 Verify global installation in a disposable Composer home before using your normal global config:
 
 ```bash
-COMPOSER_HOME=/tmp/artisan-shortcuts-global composer global require a4hmad1/artisan-pilot:^1.0
-COMPOSER_HOME=/tmp/artisan-shortcuts-global composer global config bin-dir --absolute
+COMPOSER_HOME=/tmp/artisan-pilot-global composer global require a4hmad1/artisan-pilot:^1.0
+COMPOSER_HOME=/tmp/artisan-pilot-global composer global config bin-dir --absolute
 ```
 
 Run the installed `pa` from the absolute global bin directory inside the test Laravel application. Use a unique temporary path on your platform; Windows users can set `COMPOSER_HOME` through PowerShell's `$env:COMPOSER_HOME`.

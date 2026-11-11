@@ -1,6 +1,6 @@
 {
     "name": "a4hmad1/artisan-pilot",
-    "description": "One modular CLI for Laravel Artisan, Sail, Pail, and application package commands.",
+    "description": "Type pas, pam, pamm and other shortcuts instead of long Laravel Artisan commands.",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -38,7 +38,6 @@
         }
     },
     "bin": [
-        "bin/pilot",
         "bin/pa",
         "bin/pas",
         "bin/pat",
@@ -49,7 +48,8 @@
         "bin/pamm",
         "bin/pamc",
         "bin/parl",
-        "bin/paoc"
+        "bin/paoc",
+        "bin/pilot"
     ],
     "scripts": {
         "test": "phpunit",

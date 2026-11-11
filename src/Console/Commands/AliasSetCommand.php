@@ -12,7 +12,7 @@ final class AliasSetCommand implements Command
 {
     public function usage(): string
     {
-        return 'pilot alias:set NAME COMMAND [ARGUMENTS...]';
+        return 'pa alias:set NAME COMMAND [ARGUMENTS...]';
     }
 
     public function execute(Context $context, array $arguments): int

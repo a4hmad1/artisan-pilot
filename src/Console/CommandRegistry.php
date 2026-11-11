@@ -11,6 +11,7 @@ use ArtisanShortcuts\Console\Commands\CommandsCommand;
 use ArtisanShortcuts\Console\Commands\DoctorCommand;
 use ArtisanShortcuts\Console\Commands\SailCommand;
 use ArtisanShortcuts\Console\Commands\ShortcutsCommand;
+use ArtisanShortcuts\Console\Commands\ShellCommand;
 use ArtisanShortcuts\ShortcutException;
 
 final class CommandRegistry
@@ -24,6 +25,7 @@ final class CommandRegistry
         $registry->register('commands', new CommandsCommand());
         $registry->register('doctor', new DoctorCommand());
         $registry->register('shortcuts', new ShortcutsCommand());
+        $registry->register('shell', new ShellCommand());
         $registry->register('alias:list', new AliasListCommand());
         $registry->register('alias:set', new AliasSetCommand());
         $registry->register('alias:remove', new AliasRemoveCommand());

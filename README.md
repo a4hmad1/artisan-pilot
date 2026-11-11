@@ -1,91 +1,81 @@
-# Artisan Pilot
+# Artisan Pilot — Laravel Artisan shortcuts
 
 [![CI](https://github.com/a4hmad1/artisan-pilot/actions/workflows/ci.yml/badge.svg)](https://github.com/a4hmad1/artisan-pilot/actions)
 
-**One CLI for your Laravel application.** Run Artisan, discover package commands, use safe shortcuts, and control Sail through `pilot`.
+**Type `pas` instead of `php artisan serve`.** Install the package in your Laravel project and use short terminal commands for Artisan.
 
 ```bash
-pilot make:model Post --migration
-pilot migrate
-pilot pail --filter=ERROR
-pilot horizon
-pilot sail up -d
-pilot sail test
+pas                           # php artisan serve
+pat                           # php artisan tinker
+pam                           # php artisan migrate
+pamf                          # php artisan migrate:fresh
+pamm Post --migration         # php artisan make:model Post --migration
+pamc PostController           # php artisan make:controller PostController
+parl                          # php artisan route:list
+paoc                          # php artisan optimize:clear
 ```
 
-Application commands come from your own Artisan registry, including custom commands and installed packages. Pail, Sail, Horizon, and other packages must already be installed when you use their commands. Pilot does not install or replace them.
+## One Composer command to install
 
-Initial publication is a release candidate (`v1.0.0-rc.1`). See the verification report for tested environments and remaining hosted CI limits.
-
-## Install now from GitHub
-
-Inside your Laravel application:
-
-```bash
-composer config repositories.artisan-pilot vcs https://github.com/a4hmad1/artisan-pilot.git
-composer require --dev a4hmad1/artisan-pilot:dev-main
-./vendor/bin/pilot doctor
-./vendor/bin/pilot commands
-```
-
-Local Composer executables live in `vendor/bin`. Use `./vendor/bin/pilot`, or add the **absolute** project vendor/bin directory to PATH for bare `pilot`. Composer does not automatically change your shell profile or PATH. On PowerShell use `.\vendor\bin\pilot`; Composer generates Windows `.bat` proxies.
-
-For one installation used across projects:
-
-```bash
-composer global config repositories.artisan-pilot vcs https://github.com/a4hmad1/artisan-pilot.git
-composer global require a4hmad1/artisan-pilot:dev-main
-composer global config bin-dir --absolute
-```
-
-Add the printed absolute global bin directory to PATH, then run `pilot` inside any trusted Laravel application or one of its subdirectories.
-
-After Packagist registration and a stable release tag, installation becomes:
+The public installation command is:
 
 ```bash
 composer require --dev a4hmad1/artisan-pilot
 ```
 
-That plain Packagist command is not advertised as available before registration. The GitHub VCS installation above is available now.
+**Publication status:** Packagist submission is pending. This command will work after the repository is registered and Packagist indexes the stable tag. Until then, the GitHub installation at the end of this README is the verified alternative. A GitHub release alone does not register a Composer package.
 
-## One entry point, many commands
-
-| Goal | Command |
-| --- | --- |
-| List installed commands, grouped by namespace | `pilot commands` |
-| Browse model/controller/etc. generators | `pilot commands make` |
-| Read the registry as a JSON array | `pilot commands --json` |
-| Get native Artisan command help | `pilot help make:model` |
-| See Pilot module usage | `pilot help alias:set` |
-| See Pilot's own help | `pilot --help` |
-| List fixed, generated, and custom shortcuts | `pilot shortcuts` |
-| Diagnose the current application | `pilot doctor` |
-| Generate a model | `pilot make:model Post --migration` |
-| List application routes | `pilot route:list --path=api` |
-| Run Pail, when installed | `pilot pail --filter=ERROR` |
-| Run another package's Artisan command | `pilot telescope:clear` |
-| Start Sail services | `pilot sail up -d` |
-| Run tests through Sail | `pilot sail test` |
-| Run Artisan through Sail | `pilot --runner=sail migrate` |
-| Run Pail through Sail | `pilot --runner=sail pail` |
-
-`pilot COMMAND [ARGS...]` resolves an exact Artisan command or shortcut. `pilot sail [ARGS...]` forwards directly to the application's Sail script, so Sail's own PHP, Composer, NPM, container, and Compose commands remain available without being enumerated by Pilot. Sail startup does not boot Artisan first, so `pilot sail up` can work while the application container is stopped.
-
-Native Artisan `list` remains available as `pilot list`. Wrapper module names such as `commands`, `doctor`, `shortcuts`, and `sail` are reserved. Use raw mode for an Artisan command with the same name, hidden commands, or when broken boot-time output prevents discovery:
+Composer creates all ten fixed executables in your project's `vendor/bin`. They work immediately by their paths:
 
 ```bash
-pilot -- doctor
-pilot -- some:hidden-command --help
-pilot -- list --format=json
+./vendor/bin/pas
+./vendor/bin/pamm Post --migration
 ```
 
-Raw mode skips discovery and alias resolution and forwards all following tokens directly to Artisan. Unknown or uninstalled package commands produce errors rather than installing packages or choosing another command.
+### Enable bare commands such as `pas`
 
-## Keep your existing shortcuts
+A Composer library cannot change the PATH or functions of the terminal that installed it. If your Composer bin directory is already on PATH, the fixed names work directly. Otherwise activate the shortcuts in your current shell:
 
-`pa` and all ten original executables remain available. Both entry points use the same command resolver and existing `.artisan-shortcuts.json` file.
+Bash:
 
-| Executable | Equivalent Artisan command |
+```bash
+eval "$(./vendor/bin/pa shell bash)"
+```
+
+Zsh:
+
+```zsh
+eval "$(./vendor/bin/pa shell zsh)"
+```
+
+Fish:
+
+```fish
+./vendor/bin/pa shell fish | source
+```
+
+PowerShell:
+
+```powershell
+.\vendor\bin\pa shell powershell | Out-String | Invoke-Expression
+```
+
+Then use the commands directly:
+
+```bash
+pas --port=8001
+pamm Post --migration
+pam
+parl --path=api
+```
+
+Shell activation also creates functions for safe dynamic abbreviations and your custom aliases. It prints shell code that you explicitly load; the package does not edit your shell profile. Functions apply to the current session. Regenerate them after installing packages or changing aliases. They use the PHP/package path from activation and find the Laravel application from your current directory; regenerate them if that package installation moves or is removed.
+
+For the ten fixed commands, another option is to put the **absolute** Composer bin directory on PATH using your normal shell settings. Do not permanently add a relative `vendor/bin` to PATH. Windows Composer installs `.bat` proxies; `.\vendor\bin\pas` works in PowerShell without activation.
+
+## Fixed shortcuts
+
+| Shortcut | Artisan command |
 | --- | --- |
 | `pas` | `php artisan serve` |
 | `pat` | `php artisan tinker` |
@@ -98,68 +88,109 @@ Raw mode skips discovery and alias resolution and forwards all following tokens 
 | `parl` | `php artisan route:list` |
 | `paoc` | `php artisan optimize:clear` |
 
-You can also run `pilot pamm Post`, or the original `pa pamm Post`.
+All arguments and options are passed through. Interactive input/output, confirmations, and normal exit codes are preserved. Tinker must be installed in the application for `pat` to work.
 
-Generated abbreviations retain their `pa` prefix: `pa` + first character of each colon, hyphen, or underscore-separated word. For example, `queue:work` generates `paqw`; run `pilot paqw`. Generated/custom aliases do not create extra executables on PATH.
+## Every application's commands, discovered dynamically
 
-Resolution order is fixed shortcuts, exact Artisan names, project aliases, then unambiguous generated abbreviations. A collision such as `queue:work`/`queue:watch` stops with both candidates. A fixed `pamm` always means `make:model`; the shortcuts screen shows any other commands whose generated abbreviations are shadowed, so you can use their full names. Missing fixed targets and stale custom targets are marked clearly.
-
-## Your own aliases
+Built-in, custom, and installed package commands come from your application's `artisan list --format=json`; there is no hardcoded command catalogue or persistent command cache.
 
 ```bash
-pilot alias:set models make:model Post --migration
-pilot models --factory
-pilot alias:set models make:model Article --migration
-pilot alias:list
-pilot alias:remove models
-pilot alias:set paqw queue:work --once
+./vendor/bin/pa shortcuts
+./vendor/bin/pa commands
+./vendor/bin/pa commands make --json
 ```
 
-Alias targets must be exact installed Artisan commands. Stored arguments are JSON arrays, and invocation arguments are appended without shell parsing. Aliases are not recursive mappings or shell scripts.
+Generated names use `pa` plus the first letter of each colon/hyphen/underscore-separated word. Examples:
 
-The existing project file remains `.artisan-shortcuts.json`, so renaming this package does not erase aliases. Writes use a sidecar lock and atomic file replacement. Invalid configuration is never silently overwritten. Alias names start with a lowercase letter and contain lowercase letters, digits, `_`, or `-`, with a 64-character limit. Wrapper commands, fixed shortcuts, and exact Artisan names are reserved.
-
-`alias:list` and `alias:remove` do not boot Laravel. Add `.artisan-shortcuts.json` and `.artisan-shortcuts.json.lock` to your application's `.gitignore` for personal aliases, or commit the JSON for team aliases. Do not put secrets in aliases. `doctor` reports missing alias targets.
-
-## Runners and options
-
-```bash
-pilot --project /path/to/app --php /usr/bin/php8.3 route:list --json
-pamm --project /path/to/app Invoice --migration
-pilot --runner=sail pail
-pilot --runner=docker --container=my-app --container-workdir=/var/www/html migrate
-```
-
-| Wrapper option | Default |
+| Artisan command | Generated shortcut |
 | --- | --- |
-| `--project PATH` | Current directory; find nearest ancestor with `artisan` |
-| `--php PATH` | Current PHP executable, for local Artisan only |
-| `--runner local\|sail\|docker` | `local` |
-| `--container NAME` | Required for the Docker runner |
-| `--container-workdir PATH` | `/var/www/html` |
+| `queue:work` | `paqw` |
+| `pail` | `pap` |
+| `sail:install` | `pasi` |
+| `vendor:sync-orders` | `pavso` |
 
-Put wrapper options before the command. After the command, options belong to Artisan or Sail. For a fixed executable, wrapper options go before its first Artisan argument. There is no automatic switch to Sail when it is installed.
+After shell activation, run an unambiguous generated name directly, such as `pap --filter=ERROR`. Without activation, use `./vendor/bin/pa pap --filter=ERROR` or the exact command, `./vendor/bin/pa pail --filter=ERROR`. Pail, Sail, and other optional packages must be installed in the application.
 
-Sail requires the application's `vendor/bin/sail`, Bash, Docker, and appropriate project configuration. On Windows use WSL. `pilot sail` runs Sail on the host; do not combine it with `--runner=docker`. `pilot --runner=sail COMMAND` instead runs `sail artisan COMMAND`. See [Laravel Sail's documentation](https://laravel.com/docs/13.x/sail).
+A generated collision, such as `queue:work` and `queue:watch` both producing `paqw`, is never chosen silently. The CLI reports candidates, and shell activation omits that ambiguous name. Choose the exact command or define an explicit custom alias.
 
-Docker execution requires an existing container, PHP inside it, and the application/dependencies at the selected container workdir. A local `artisan` file is still needed for project selection and alias storage. Docker uses `exec`, keeps stdin open during execution, and allocates a TTY only when local stdin and stdout are terminals. Discovery never allocates a TTY.
+Fixed shortcuts retain their meanings: `pamm` always means `make:model`, even if `make:middleware` has the same generated abbreviation. The shortcuts screen shows shadowed names. Resolution order is fixed shortcuts, exact Artisan names, custom aliases, then unambiguous generated names.
 
-Pail's own runtime and extension requirements still apply; Pilot does not bundle or override them. See [Pail's documentation](https://laravel.com/docs/13.x/logging#tailing-log-messages-using-pail).
+## Custom shortcuts
 
-## Safety and compatibility
+```bash
+./vendor/bin/pa alias:set models make:model Post --migration
+./vendor/bin/pa alias:set palogs pail --filter=ERROR
+./vendor/bin/pa alias:set paqw queue:work --once
+./vendor/bin/pa alias:list
+```
 
-- Argument-array process APIs preserve spaces, quotes, shell metacharacters, standard streams, and exit codes. No shell interpolation is used for execution.
-- Executed commands receive no implicit `--force` or `--no-interaction`. Laravel and package confirmations remain intact. Some destructive development commands, including `migrate:fresh`, do not ask for confirmation under Laravel's own policy.
-- Discovery is a separate `artisan list --format=json --no-ansi --no-interaction` process, bounded to 30 seconds and 16 MiB. File-backed capture avoids pipe deadlocks. There is no stale command cache.
-- On Unix with PCNTL, execution replaces the wrapper process and retains terminal/signals. The portable fallback inherits standard streams and returns normal exit codes; signal behavior follows PHP/OS semantics.
-- Application commands boot separately for discovery and execution. Use only trusted projects; boot code and shared aliases can have side effects. Use an inherited `APP_ENV` when command registration depends on environment, or raw mode for environment-specific direct execution.
-- Wrapper usage/discovery errors return `2`, unexpected wrapper errors return `1`, and executed command exit codes pass through unchanged.
+Refresh shell activation, then use the names directly:
 
-PHP 8.2+ and Composer 2.2+ are required by Pilot. Laravel 11, 12, and 13 are integration targets; Laravel 13 itself requires PHP 8.3+. The package has no Laravel runtime dependency or service provider. Compatible future Laravel versions may work through the CLI contract, but are not guaranteed before testing. Laravel 11 is an end-of-life compatibility target.
+```bash
+eval "$(./vendor/bin/pa shell bash)"
+models --factory
+palogs
+paqw --queue=mail
+```
 
-## Development and publishing
+Replace an alias with `alias:set` again; delete one with `alias:remove NAME`. Stored arguments are JSON arrays, and new arguments are appended without shell parsing. Targets must be exact, currently discovered Artisan commands. Aliases are not recursive shell scripts.
 
-The CLI is modular: command handlers implement `Console\Command`, and `Console\CommandRegistry` provides explicit registration. A per-invocation context lazily discovers Artisan commands only when a handler needs them. Third-party Artisan commands need no Pilot module or hardcoded mapping.
+Aliases live in the existing `.artisan-shortcuts.json`, with locked/atomic updates. Invalid files are never silently overwritten. `alias:list` and `alias:remove` work without booting Laravel. Names start with a lowercase letter and contain lowercase letters, digits, `_`, or `-` (64 characters maximum). Bare shell exports use portable lowercase letters/digits/underscores; invoke hyphenated aliases through `pa NAME`. Reserved management names and fixed/exact command names cannot be overwritten.
+
+Shared aliases can explicitly contain destructive options, so review them before loading. Do not put secrets in alias files. Ignore the JSON and `.lock` sidecar in Git for personal aliases, or commit the JSON for team mappings.
+
+## Sail, Docker, and project options
+
+The same shortcuts work through an explicitly selected runner:
+
+```bash
+pas --runner=sail --host=0.0.0.0
+pam --runner=sail --no-interaction
+pamm --project /path/to/app Invoice --migration
+pam --runner=docker --container=my-app --container-workdir=/var/www/html
+```
+
+Put wrapper options before the first Artisan argument/option. `--project PATH` searches from that directory for the nearest `artisan` file. `--php PATH` selects local PHP. The default runner is `local`; containers are never selected automatically.
+
+Sail needs Bash, Docker, and the application's `vendor/bin/sail`. Native Windows users run Sail in WSL. To control Sail itself, the optional management CLI provides `pa sail up -d`, `pa sail test`, and other arguments forwarded to Sail. `--runner=sail` instead runs an Artisan command through Sail. `pilot` is an optional synonym for the management CLI, not required before shortcuts.
+
+Docker needs an existing container and application/dependencies at the selected container workdir (default `/var/www/html`), plus a local `artisan` for project selection/aliases. Execution keeps stdin open and allocates a TTY only when local stdin/stdout are terminals. Discovery does not allocate a TTY. See [Sail documentation](https://laravel.com/docs/13.x/sail).
+
+## Help, diagnostics, and raw commands
+
+```bash
+./vendor/bin/pa doctor
+./vendor/bin/pa help migrate
+./vendor/bin/pa -- list --format=json
+./vendor/bin/pa -- some:hidden-command --help
+```
+
+Raw mode skips discovery and alias resolution. Use it for hidden commands, reserved wrapper names (`commands`, `doctor`, `shortcuts`, `shell`, `sail`, `alias:*`), or broken boot-time output. Wrapper module usage is available through `pa help shell` or `pa alias:set --help`.
+
+Shell functions use `--shortcut=NAME` internally so wrapper options remain available with bare dynamic/custom commands. This selects a name using the same safe resolver; it never turns arguments into shell code.
+
+## Runtime behavior and compatibility
+
+- PHP 8.2+ and Composer 2.2+ are required by this package. Laravel 13 itself requires PHP 8.3+. Laravel 11/12/13 are integration targets; future compatible Artisan CLI versions may work but must be tested before being advertised as verified.
+- Runtime execution uses argument arrays, with no unsafe shell interpolation. Generated shell code validates function names and quotes executable paths; forwarded arguments remain arrays.
+- No implicit `--force` or `--no-interaction` is added to executed commands. Destructive commands retain Laravel's own behavior; `migrate:fresh` can erase development data without a Laravel confirmation.
+- Discovery is a separate noninteractive process, bounded to 30 seconds and 16 MiB. Execution has no timeout. Both inherit the environment; use an inherited `APP_ENV` or raw mode for environment-dependent command registration.
+- On Unix with PCNTL, execution replaces the PHP wrapper and preserves terminal signals. Other platforms inherit standard streams through a child process; signal semantics follow PHP/OS behavior.
+- Wrapper usage/discovery failures return `2`; unexpected wrapper errors return `1`; executed Artisan exit codes pass through. Shell-specific status conventions still apply, such as PowerShell's `$LASTEXITCODE`.
+- Use only trusted applications and alias files. Discovery and execution each boot the application. The package has no Laravel runtime dependency or Composer plugin and does not silently modify shell profiles.
+
+## GitHub installation before Packagist registration
+
+```bash
+composer config repositories.artisan-pilot vcs https://github.com/a4hmad1/artisan-pilot.git
+composer require --dev a4hmad1/artisan-pilot:dev-main
+```
+
+This alternative needs two Composer commands because the repository has not yet been registered on Packagist. The one-command public installation above depends on that final registration.
+
+A global installation is also supported after Packagist registration with `composer global require a4hmad1/artisan-pilot`. Add Composer's absolute global bin directory to PATH (`composer global config bin-dir --absolute`) and the fixed shortcuts are available across Laravel projects. Before registration, configure the global VCS repository first.
+
+## Development
 
 ```bash
 composer install
@@ -167,11 +198,10 @@ composer check
 php tools/prepare-fixture.php
 composer install --working-dir=tests/laravel
 composer test
+python3 tools/bare-shortcuts-smoke.py
 php tools/release.php
 ```
 
-The real Laravel fixture includes Tinker, Pail, and Sail. Integration tests explicitly skip when its dependencies are absent. See [architecture](docs/architecture.md), [verification evidence](docs/verification.md), [contributing](CONTRIBUTING.md), and [GitHub/Packagist publishing](docs/publishing.md).
-
-This project was renamed from Artisan Shortcuts. See [migration instructions](docs/migration.md) if the old Composer package is already installed.
+See [verification evidence](docs/verification.md), [architecture](docs/architecture.md), [publishing](docs/publishing.md), and [migration](docs/migration.md). Real Laravel integration tests explicitly skip if fixture dependencies are absent. Bash/Zsh execution is verified locally; native PowerShell/Fish execution and Windows/macOS checks are listed honestly in the verification report.
 
 MIT licensed. See [LICENSE](LICENSE).

@@ -1,7 +1,8 @@
 # Architecture
 
-The package is an out-of-process CLI client, not a Laravel service provider. Composer installs `pilot`, the compatible `pa` entry point, and ten fixed binaries. Each tiny entry point shares `bin/bootstrap.php`, loads Composer's generated autoloader (including local/global proxy support), and invokes `Application`.
+The package is an out-of-process CLI client, not a Laravel service provider. Composer installs `pilot`, the compatible `pa` entry point, and ten fixed binaries. The fixed names (`pas`, `pam`, `pamm`, etc.) are the primary user interface. Each tiny entry point shares `bin/bootstrap.php`, loads Composer's generated autoloader (including local/global proxy support), and invokes `Application`.
 
+- `ShellIntegration`: exports fixed shortcuts, unique dynamic abbreviations, and valid custom names as quoted shell functions. Ambiguous names are omitted. `--shortcut=NAME` preserves wrapper option parsing for named invocation. No profile changes are performed.
 - `Options`: parses only wrapper options before the command; keeps remaining tokens untouched.
 - `Project`: locates the nearest ancestor containing `artisan`, independently of the package install path.
 - `Invocation`: builds argument arrays for the explicit local, Sail, or Docker runner.
@@ -19,7 +20,7 @@ No application source is loaded into the wrapper process. Application dependenci
 
 ## Deliberate boundaries
 
-No persistent discovery cache; installing a package is immediately reflected. No implicit container detection. No shell aliases, arbitrary shell templates, or recursive custom mappings. No auto-updating package code. No global alias file crossing project boundaries. No auto-confirmation or added force flags.
+No persistent discovery cache; installing a package is immediately reflected. No implicit container detection. No arbitrary user shell templates or recursive custom mappings. Shell functions are generated only through explicit activation, using validated names and quoted executable paths. No auto-updating package code. No global alias file crossing project boundaries. No auto-confirmation or added force flags.
 
 Discovery uses the application's default/inherited environment. For command registration conditional on `--env`, use an inherited `APP_ENV` shared by discovery and execution, or raw mode. Commands hidden from Artisan's JSON list are accessible by raw mode. Reserved wrapper management names are accessible in Artisan with raw mode too.
 

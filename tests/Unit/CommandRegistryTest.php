@@ -22,7 +22,7 @@ final class CommandRegistryTest extends TestCase
         self::assertSame($expected, $registry->names());
         foreach ($registry->names() as $name) {
             self::assertInstanceOf(Command::class, $registry->get($name));
-            self::assertStringStartsWith('pilot ', $registry->get($name)->usage());
+            self::assertStringStartsWith('pa ', $registry->get($name)->usage());
         }
     }
 
@@ -32,7 +32,7 @@ final class CommandRegistryTest extends TestCase
         $module = new class implements Command {
             public function usage(): string
             {
-                return 'pilot example';
+                return 'pa example';
             }
             public function execute(Context $context, array $arguments): int
             {

@@ -16,6 +16,6 @@ Skip the repository removal command if that entry does not exist. For a global i
 
 Do not install both packages together: they provide the same legacy executable names. Your project `.artisan-shortcuts.json` remains in place and works with `pilot`, `pa`, and the ten original binaries. Existing dynamic abbreviations retain their `pa` prefix. Existing shell profiles do not need to change if they already point at the same Composer bin directory.
 
-The PHP namespace `ArtisanShortcuts` is retained to avoid unnecessary source-level breakage. The main public entry point is now `pilot`; `pa` remains supported. Newly reserved Pilot module names are `commands` and `sail`; an exact Artisan command with a reserved name is still available through `pilot -- COMMAND`.
+The PHP namespace `ArtisanShortcuts` is retained to avoid unnecessary source-level breakage. The main public entry point is now `pilot`; `pa` remains supported. Newly reserved management module names are `commands`, `sail`, and `shell`; an exact Artisan command with a reserved name is still available through `pilot -- COMMAND`.
 
-If an existing custom alias is named `commands` or `sail`, recreate it under another name with `alias:set`, then remove the old entry. Those names now select Pilot modules.
+If an existing custom alias is named `commands`, `sail`, or `shell`, recreate it under another name with `alias:set`, then remove the old entry. Those names now select Pilot modules.

@@ -11,7 +11,7 @@ final class AliasRemoveCommand implements Command
 {
     public function usage(): string
     {
-        return 'pilot alias:remove NAME';
+        return 'pa alias:remove NAME';
     }
 
     public function execute(Context $context, array $arguments): int

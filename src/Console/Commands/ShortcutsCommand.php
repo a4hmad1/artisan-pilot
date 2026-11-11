@@ -12,7 +12,7 @@ final class ShortcutsCommand implements Command
 {
     public function usage(): string
     {
-        return 'pilot shortcuts';
+        return 'pa shortcuts';
     }
 
     public function execute(Context $context, array $arguments): int

@@ -12,7 +12,7 @@ final class CommandsCommand implements Command
 {
     public function usage(): string
     {
-        return 'pilot commands [NAMESPACE_OR_COMMAND] [--json]';
+        return 'pa commands [NAMESPACE_OR_COMMAND] [--json]';
     }
 
     public function execute(Context $context, array $arguments): int

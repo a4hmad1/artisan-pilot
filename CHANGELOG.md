@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.0
+
+- Restore the original shortcut-first workflow: `pas`, `pam`, `pamm`, and all ten fixed commands are the primary interface.
+- Export bare dynamic/custom shortcuts for Bash, Zsh, Fish, and PowerShell through explicit shell activation.
+- Omit ambiguous generated functions and preserve wrapper options, argument arrays, and exit status.
+- Support direct execution from Composer-installed package binaries as well as Composer proxies.
+- Add executable shell tests and real bare `pas`, `pamm`, and `pam` Laravel smoke coverage.
+- Document the single Composer installation and its Packagist registration prerequisite, separately from shell PATH setup.
+
 ## 1.0.0-rc.1 — release candidate
 
 - Rename the project and Composer package to Artisan Pilot and add the main `pilot` executable.

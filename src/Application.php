@@ -16,7 +16,7 @@ final class Application
     }
 
     /** @param list<string> $arguments */
-    public function run(array $arguments, string $binary = 'pilot'): int
+    public function run(array $arguments, string $binary = 'pa'): int
     {
         try {
             return $this->dispatch(new Options($arguments), $binary);
@@ -24,7 +24,7 @@ final class Application
             fwrite(STDERR, 'Artisan Pilot: ' . $error->getMessage() . "\n");
             return 2;
         } catch (Throwable $error) {
-            fwrite(STDERR, 'Artisan Pilot: ' . $error->getMessage() . "\nRun pilot doctor for diagnostics.\n");
+            fwrite(STDERR, 'Artisan Pilot: ' . $error->getMessage() . "\nRun pa doctor for diagnostics.\n");
             return 1;
         }
     }
@@ -32,7 +32,10 @@ final class Application
     private function dispatch(Options $options, string $binary): int
     {
         $arguments = $options->arguments;
-        $isShortcut = isset(Resolver::DEFAULTS[$binary]);
+        if ($options->shortcut !== '') {
+            $binary = $options->shortcut;
+        }
+        $isShortcut = $options->shortcut !== '' || isset(Resolver::DEFAULTS[$binary]);
         $registry = $this->registry ?? CommandRegistry::defaults();
         if (!$isShortcut && !$options->direct) {
             if ($arguments === [] || in_array($arguments, [['help'], ['--help'], ['-h']], true)) {

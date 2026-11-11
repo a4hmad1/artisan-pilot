@@ -51,7 +51,7 @@ jobs:
       - if: runner.os != 'Windows'
         run: composer test -- --exclude-group real-laravel
       - if: runner.os == 'Windows'
-        run: composer test -- --exclude-group real-laravel,unix-sail
+        run: composer test -- --exclude-group real-laravel,unix-sail,unix-shell
 
   laravel:
     strategy:
@@ -81,7 +81,7 @@ jobs:
       - if: runner.os != 'Windows'
         run: composer test -- --fail-on-skipped
       - if: runner.os == 'Windows'
-        run: composer test -- --exclude-group unix-sail --fail-on-skipped
+        run: composer test -- --exclude-group unix-sail,unix-shell --fail-on-skipped
 
   terminal-and-docker:
     runs-on: ubuntu-latest
@@ -101,3 +101,18 @@ jobs:
       - run: composer update --working-dir=tests/laravel --with "laravel/framework:^13.0" --no-interaction --prefer-dist
       - run: docker pull php:8.4-fpm-alpine
       - run: python3 tools/sail-smoke.py
+
+  bare-shortcuts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pcntl, mbstring, dom, xml, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: php tools/prepare-fixture.php
+      - run: composer update --working-dir=tests/laravel --with "laravel/framework:^12.0" --no-interaction --prefer-dist
+      - run: python3 tools/bare-shortcuts-smoke.py

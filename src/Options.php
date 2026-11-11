@@ -9,6 +9,7 @@ final class Options
     public string $project;
     public string $php;
     public string $runner = 'local';
+    public string $shortcut = '';
     public string $container = '';
     public string $containerWorkdir = '/var/www/html';
     /** @var list<string> */
@@ -23,6 +24,7 @@ final class Options
         $names = [
             '--project' => 'project', '--php' => 'php', '--runner' => 'runner',
             '--container' => 'container', '--container-workdir' => 'containerWorkdir',
+            '--shortcut' => 'shortcut',
         ];
         while ($arguments !== []) {
             $argument = array_shift($arguments);
@@ -45,6 +47,9 @@ final class Options
         }
         if (!in_array($this->runner, ['local', 'sail', 'docker'], true)) {
             throw new ShortcutException('Runner must be local, sail, or docker.');
+        }
+        if ($this->shortcut !== '' && !preg_match('/^[a-z][a-z0-9_-]*$/D', $this->shortcut)) {
+            throw new ShortcutException('Invalid shortcut name.');
         }
         $this->arguments = $arguments;
     }

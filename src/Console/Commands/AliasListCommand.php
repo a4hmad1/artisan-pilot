@@ -11,7 +11,7 @@ final class AliasListCommand implements Command
 {
     public function usage(): string
     {
-        return 'pilot alias:list';
+        return 'pa alias:list';
     }
 
     public function execute(Context $context, array $arguments): int

@@ -9,14 +9,16 @@ final class Help
     public static function text(): string
     {
         return <<<'HELP'
-Artisan Pilot — one CLI for your Laravel application
+Artisan Pilot — direct Laravel Artisan shortcuts
 
-Usage: pilot [WRAPPER OPTIONS] COMMAND [ARTISAN ARGUMENTS/OPTIONS...]
+Usage: pas|pat|pad|paup|pam|pamf|pamm|pamc|parl|paoc [WRAPPER OPTIONS] [ARGS...]
+       pa [WRAPPER OPTIONS] COMMAND [ARTISAN ARGUMENTS/OPTIONS...]
        pilot [WRAPPER OPTIONS] -- EXACT_ARTISAN_COMMAND [ARGUMENTS...]
        pilot sail [SAIL ARGUMENTS...]
 
   commands [NAMESPACE] [--json]  Browse all installed Artisan commands
   shortcuts                      Show fixed, dynamic and custom shortcuts
+  shell bash|zsh|fish|powershell  Print shell functions for bare shortcut commands
   doctor                         Diagnose project, runtime, commands and aliases
   alias:set NAME COMMAND [ARGS]  Create or replace a project alias
   alias:remove NAME              Remove a project alias
@@ -31,23 +33,24 @@ Usage: pilot [WRAPPER OPTIONS] COMMAND [ARTISAN ARGUMENTS/OPTIONS...]
   --container NAME               Docker container name or ID
   --container-workdir PATH       Docker project path (default: /var/www/html)
 
-Examples (package commands must be installed in your application):
-  pilot make:model Post --migration
-  pilot migrate
-  pilot pail --filter=ERROR
-  pilot horizon
-  pilot --runner=sail pail
-  pilot sail up -d
-  pilot sail test
-  pilot commands make
-  pilot help make:model
+Your everyday commands:
+  pas                         php artisan serve
+  pat                         php artisan tinker
+  pad / paup                  php artisan down / up
+  pam / pamf                  php artisan migrate / migrate:fresh
+  pamm Post --migration       php artisan make:model Post --migration
+  pamc PostController         php artisan make:controller PostController
+  parl                        php artisan route:list
+  paoc                        php artisan optimize:clear
 
-Compatibility: pa and all ten existing shortcut executables still work:
-  pas serve    pat tinker    pad down    paup up    pam migrate
-  pamf migrate:fresh    pamm make:model    pamc make:controller
-  parl route:list    paoc optimize:clear
+Composer installs the fixed binaries in vendor/bin. For bare commands, put that
+absolute directory on PATH or activate shell functions:
+  eval "$(./vendor/bin/pa shell bash)"
 
-Dynamic shortcuts keep their pa prefix: queue:work -> paqw; run pilot paqw.
+The shell activation also exposes unambiguous generated and custom shortcuts.
+Regenerate it after adding commands or aliases. pilot remains an optional entry.
+
+Dynamic shortcuts keep their pa prefix: queue:work -> paqw; run pa paqw, or paqw after shell activation.
 Ambiguity stops with candidates. Artisan confirmations remain intact; no added --force.
 
 HELP;
