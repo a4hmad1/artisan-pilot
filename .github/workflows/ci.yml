@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: zip, mbstring, dom, xml, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer check
+      - run: php tools/release.php
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artisan-shortcuts-source
+          path: dist/*
+
+  portable-cli:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, php: '8.2' }
+          - { os: ubuntu-latest, php: '8.3' }
+          - { os: ubuntu-latest, php: '8.4' }
+          - { os: ubuntu-latest, php: '8.5' }
+          - { os: windows-latest, php: '8.4' }
+          - { os: macos-latest, php: '8.4' }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: zip, mbstring, dom, xml, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer test -- --exclude-group real-laravel
+
+  laravel:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, php: '8.2', laravel: '11' }
+          - { os: ubuntu-latest, php: '8.4', laravel: '11' }
+          - { os: ubuntu-latest, php: '8.2', laravel: '12' }
+          - { os: ubuntu-latest, php: '8.5', laravel: '12' }
+          - { os: ubuntu-latest, php: '8.3', laravel: '13' }
+          - { os: ubuntu-latest, php: '8.5', laravel: '13' }
+          - { os: windows-latest, php: '8.4', laravel: '12' }
+          - { os: macos-latest, php: '8.4', laravel: '13' }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: zip, mbstring, dom, xml, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: php tools/prepare-fixture.php
+      - run: composer require --working-dir=tests/laravel "laravel/framework:^${{ matrix.laravel }}.0" --with-all-dependencies --no-interaction --prefer-dist
+      - run: composer test -- --fail-on-skipped
+
+  terminal-and-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pcntl
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: python3 tools/terminal-smoke.py
+      - run: docker pull php:8.3-cli-alpine
+      - run: python3 tools/docker-smoke.py

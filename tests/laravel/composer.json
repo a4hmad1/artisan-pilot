@@ -1,0 +1,35 @@
+{
+    "name": "a4hmad1/artisan-shortcuts-fixture",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "^11.0 || ^12.0 || ^13.0",
+        "laravel/tinker": "^3.0",
+        "a4hmad1/artisan-shortcuts": "@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../..",
+            "options": {
+                "symlink": true,
+                "versions": {
+                    "a4hmad1/artisan-shortcuts": "dev-main"
+                }
+            }
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "allow-plugins": false,
+        "audit": {
+            "block-insecure": false
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

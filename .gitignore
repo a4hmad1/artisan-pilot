@@ -1,0 +1,13 @@
+/vendor/
+/composer.lock
+/.phpunit.cache/
+/.phpstan/
+/build/
+/dist/
+/tests/laravel/vendor/
+/tests/laravel/composer.lock
+/tests/laravel/storage/
+/tests/laravel/bootstrap/cache/
+/tests/laravel/.artisan-shortcuts.json*
+/.artisan-shortcuts.json*
+__pycache__/

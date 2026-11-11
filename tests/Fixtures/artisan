@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+$commands = [
+    'serve', 'tinker', 'down', 'up', 'migrate', 'migrate:fresh', 'make:model',
+    'make:controller', 'route:list', 'optimize:clear', 'queue:work', 'queue:watch',
+    'terminal:probe', 'probe:input', 'probe:exit', 'probe:args', 'probe:confirm', 'plugin:task',
+];
+if (($argv[1] ?? '') === 'list') {
+    echo json_encode(['commands' => array_map(static fn ($name) => ['name' => $name], $commands)]);
+    exit(0);
+}
+if (($argv[1] ?? '') === 'terminal:probe') {
+    echo 'TTY=' . (stream_isatty(STDIN) && stream_isatty(STDOUT) ? 'yes' : 'no') . "\n";
+    echo 'PID=' . getmypid() . "\n";
+    sleep(30);
+    exit(0);
+}
+if (($argv[1] ?? '') === 'probe:input') {
+    echo stream_get_contents(STDIN);
+    fwrite(STDERR, "separate stderr\n");
+    exit(0);
+}
+if (($argv[1] ?? '') === 'probe:exit') {
+    exit(42);
+}
+if (($argv[1] ?? '') === 'probe:confirm') {
+    echo "Continue? [y/N] ";
+    $answer = trim((string) fgets(STDIN));
+    echo $answer === 'y' ? "confirmed\n" : "cancelled\n";
+    exit($answer === 'y' ? 0 : 1);
+}
+echo json_encode(array_slice($argv, 1), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
