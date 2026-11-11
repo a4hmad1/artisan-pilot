@@ -5,7 +5,7 @@ declare(strict_types=1);
 $commands = [
     'serve', 'tinker', 'down', 'up', 'migrate', 'migrate:fresh', 'make:model',
     'make:controller', 'route:list', 'optimize:clear', 'queue:work', 'queue:watch',
-    'terminal:probe', 'probe:input', 'probe:exit', 'probe:args', 'probe:confirm', 'plugin:task',
+    'terminal:probe', 'probe:input', 'probe:exit', 'probe:args', 'probe:confirm', 'plugin:task', 'pail', 'sail:install', 'horizon', 'make:middleware',
 ];
 if (($argv[1] ?? '') === 'list') {
     echo json_encode(['commands' => array_map(static fn ($name) => ['name' => $name], $commands)]);

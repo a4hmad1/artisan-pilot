@@ -19,11 +19,11 @@ final class CommandCatalog
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException) {
             throw new ShortcutException(
-                'Artisan returned invalid JSON. Remove boot-time output; try pa -- list --format=json.'
+                'Artisan returned invalid JSON. Remove boot-time output; try pilot -- list --format=json.'
             );
         }
         if (!is_array($data) || !isset($data['commands']) || !is_array($data['commands'])) {
-            throw new ShortcutException('Artisan JSON has no commands array. Try pa -- list --format=json.');
+            throw new ShortcutException('Artisan JSON has no commands array. Try pilot -- list --format=json.');
         }
         $commands = [];
         foreach ($data['commands'] as $command) {

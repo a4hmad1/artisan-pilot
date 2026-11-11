@@ -29,7 +29,7 @@ if (proc_close($process) !== 0 || $output === false || $output === '') {
 if (!is_dir($target)) {
     mkdir($target, 0777, true);
 }
-$filename = "artisan-shortcuts-{$version}.zip";
+$filename = "artisan-pilot-{$version}.zip";
 $path = $target . '/' . $filename;
 $zip = new ZipArchive();
 if ($zip->open($path, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
@@ -39,11 +39,11 @@ foreach (explode("\0", rtrim($output, "\0")) as $file) {
     if (preg_match('~(^|/)(vendor|storage|dist|build|\.git|\.phpunit\.cache|\.phpstan)(/|$)|composer\.lock$|\.artisan-shortcuts\.json~', $file)) {
         throw new RuntimeException("Unexpected generated/private tracked file: {$file}");
     }
-    if (!$zip->addFile($root . '/' . $file, 'artisan-shortcuts/' . $file)) {
+    if (!$zip->addFile($root . '/' . $file, 'artisan-pilot/' . $file)) {
         throw new RuntimeException("Cannot archive {$file}.");
     }
     $mode = str_starts_with($file, 'bin/') && $file !== 'bin/bootstrap.php' ? 0100755 : 0100644;
-    $zip->setExternalAttributesName('artisan-shortcuts/' . $file, ZipArchive::OPSYS_UNIX, $mode << 16);
+    $zip->setExternalAttributesName('artisan-pilot/' . $file, ZipArchive::OPSYS_UNIX, $mode << 16);
 }
 if (!$zip->close()) {
     throw new RuntimeException('Cannot finish archive.');

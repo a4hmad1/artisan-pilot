@@ -1,11 +1,13 @@
 {
-    "name": "a4hmad1/artisan-shortcuts-fixture",
+    "name": "a4hmad1/artisan-pilot-fixture",
     "type": "project",
     "license": "MIT",
     "require": {
         "laravel/framework": "^11.0 || ^12.0 || ^13.0",
         "laravel/tinker": "^3.0",
-        "a4hmad1/artisan-shortcuts": "@dev"
+        "a4hmad1/artisan-pilot": "@dev",
+        "laravel/pail": "^1.2",
+        "laravel/sail": "^1.41"
     },
     "repositories": [
         {
@@ -14,7 +16,7 @@
             "options": {
                 "symlink": true,
                 "versions": {
-                    "a4hmad1/artisan-shortcuts": "dev-main"
+                    "a4hmad1/artisan-pilot": "dev-main"
                 }
             }
         }

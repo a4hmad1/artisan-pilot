@@ -11,7 +11,9 @@ final class Resolver
         'pam' => 'migrate', 'pamf' => 'migrate:fresh', 'pamm' => 'make:model',
         'pamc' => 'make:controller', 'parl' => 'route:list', 'paoc' => 'optimize:clear',
     ];
-    public const INTERNAL = ['help', 'shortcuts', 'doctor', 'alias:set', 'alias:remove', 'alias:list'];
+    public const INTERNAL = [
+        'help', 'commands', 'shortcuts', 'doctor', 'alias:set', 'alias:remove', 'alias:list', 'sail',
+    ];
 
     /** @param list<string> $commands
      *  @return array<string, list<string>>
@@ -66,6 +68,6 @@ final class Resolver
                 . '. Use an exact command or a custom alias.'
             );
         }
-        throw new ShortcutException("Unknown command or shortcut {$name}. Run pa shortcuts or pa -- list.");
+        throw new ShortcutException("Unknown command or shortcut {$name}. Run pilot commands or pilot shortcuts.");
     }
 }

@@ -13,11 +13,11 @@ composer test
 For a specific real framework version:
 
 ```bash
-composer require --working-dir=tests/laravel 'laravel/framework:^12.0' --with-all-dependencies --no-interaction
+composer update --working-dir=tests/laravel --with 'laravel/framework:^12.0' --no-interaction
 composer test
 ```
 
-The fixture uses SQLite in memory and `APP_ENV=testing`. It registers a custom command and Tinker. Its Composer audit security blocking is disabled **only for the isolated test fixture** to allow compatibility tests against end-of-life Laravel 11. Do not copy this policy into production projects. The distributed CLI has no Laravel dependency and does not change application audit settings.
+The fixture uses SQLite in memory and `APP_ENV=local`. It registers a custom command, Tinker, Pail, and Sail. Its Composer audit security blocking is disabled **only for the isolated test fixture** to allow compatibility tests against end-of-life Laravel 11. Do not copy this policy into production projects. The distributed CLI has no Laravel dependency and does not change application audit settings.
 
 Use PSR-12. `composer lint` checks formatting, `composer analyse` uses PHPStan level 8, and `composer test` runs PHPUnit. The root Composer lockfile is intentionally untracked for this library, so CI resolves dependencies against each PHP version. For regressions, add behavior tests for collisions, exact arguments, exit codes, or alias persistence as appropriate. Keep CLI tests independent of your personal environment and credentials.
 

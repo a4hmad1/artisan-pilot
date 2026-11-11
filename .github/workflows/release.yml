@@ -16,7 +16,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: zip, mbstring, dom, xml
+          extensions: zip, mbstring, dom, xml, pdo_sqlite, pcntl
           tools: composer:v2
           coverage: none
       - run: composer install --no-interaction --prefer-dist
@@ -27,7 +27,7 @@ jobs:
       - run: php tools/release.php
       - uses: actions/upload-artifact@v4
         with:
-          name: artisan-shortcuts-source
+          name: artisan-pilot-source
           path: dist/*
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -38,9 +38,10 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: artisan-shortcuts-source
+          name: artisan-pilot-source
           path: dist
       - uses: softprops/action-gh-release@v2
         with:
           files: dist/*
           generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}

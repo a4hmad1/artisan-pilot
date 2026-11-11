@@ -1,18 +1,21 @@
 {
-    "name": "a4hmad1/artisan-shortcuts",
-    "description": "Safe, dynamic Artisan shortcuts for Laravel applications, locally and globally.",
+    "name": "a4hmad1/artisan-pilot",
+    "description": "One modular CLI for Laravel Artisan, Sail, Pail, and application package commands.",
     "type": "library",
     "license": "MIT",
     "keywords": [
         "laravel",
         "artisan",
         "cli",
-        "shortcuts"
+        "shortcuts",
+        "sail",
+        "pail",
+        "pilot"
     ],
-    "homepage": "https://github.com/a4hmad1/Shortcut-arsitan---laravel-",
+    "homepage": "https://github.com/a4hmad1/artisan-pilot",
     "support": {
-        "issues": "https://github.com/a4hmad1/Shortcut-arsitan---laravel-/issues",
-        "source": "https://github.com/a4hmad1/Shortcut-arsitan---laravel-"
+        "issues": "https://github.com/a4hmad1/artisan-pilot/issues",
+        "source": "https://github.com/a4hmad1/artisan-pilot"
     },
     "require": {
         "php": "^8.2",
@@ -35,6 +38,7 @@
         }
     },
     "bin": [
+        "bin/pilot",
         "bin/pa",
         "bin/pas",
         "bin/pat",

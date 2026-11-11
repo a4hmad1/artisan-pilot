@@ -8,8 +8,11 @@ use JsonException;
 
 final class AliasStore
 {
-    public function __construct(private readonly string $project)
-    {
+    /** @param list<string> $reservedNames */
+    public function __construct(
+        private readonly string $project,
+        private readonly array $reservedNames = Resolver::INTERNAL
+    ) {
     }
 
     /** @return array<string, non-empty-list<string>> */
@@ -30,9 +33,9 @@ final class AliasStore
         }
         if (
             isset(Resolver::DEFAULTS[$name])
-            || in_array($name, Resolver::INTERNAL, true)
+            || in_array($name, $this->reservedNames, true)
             || in_array($name, $commands, true)
-            || $name === 'pa'
+            || in_array($name, ['pa', 'pilot'], true)
         ) {
             throw new ShortcutException("Alias {$name} is reserved by a shortcut, command, or management action.");
         }

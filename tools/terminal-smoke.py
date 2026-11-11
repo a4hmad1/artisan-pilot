@@ -10,7 +10,7 @@ import time
 root = Path(__file__).resolve().parent.parent
 pid, master = pty.fork()
 if pid == 0:
-    os.execvp('php', ['php', str(root / 'bin/pa'), '--project', str(root / 'tests/Fixtures'), 'terminal:probe'])
+    os.execvp('php', ['php', str(root / 'bin/pilot'), '--project', str(root / 'tests/Fixtures'), 'terminal:probe'])
 output = b''
 finished = False
 try:

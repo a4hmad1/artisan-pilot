@@ -98,4 +98,37 @@ final class LaravelTest extends TestCase
         self::assertSame(1, $status, $error . $output);
         self::assertStringContainsString('cancelled', strtolower($output));
     }
+    public function testRealPailSailAndPilotComposerBinary(): void
+    {
+        $fixture = $this->fixture();
+        [$status, $output, $error] = $this->cli(['--project', $fixture, 'commands', '--json'], 'pilot');
+        self::assertSame(0, $status, $error);
+        $commands = json_decode($output, true, 512, JSON_THROW_ON_ERROR);
+        self::assertContains('pail', $commands);
+        self::assertContains('sail:install', $commands);
+        self::assertContains('tinker', $commands);
+        foreach ([['pail', '--help'], ['help', 'pail'], ['pap', '--help']] as $arguments) {
+            [$status, $output, $error] = $this->cli(['--project', $fixture, ...$arguments], 'pilot');
+            self::assertSame(0, $status, $error);
+            self::assertStringContainsString('--filter', $output);
+        }
+        $output = (new \ArtisanShortcuts\Process())->capture(
+            [PHP_BINARY, $fixture . '/vendor/bin/pilot', '--project', $fixture, 'commands', 'sail', '--json'],
+            $fixture
+        );
+        self::assertContains('sail:install', json_decode($output, true, 512, JSON_THROW_ON_ERROR));
+    }
+
+    #[\PHPUnit\Framework\Attributes\Group('unix-sail')]
+    public function testRealSailScriptHelpWithoutApplicationBoot(): void
+    {
+        if (PHP_OS_FAMILY === 'Windows') {
+            self::markTestSkipped('Native Sail runs on Windows via WSL.');
+        }
+        [$status, $output, $error] = $this->cli(['--project', $this->fixture(), 'sail', '--help'], 'pilot');
+        // Sail intentionally exits 1 for its own help; preserve the upstream status.
+        self::assertSame(1, $status, $error);
+        self::assertStringContainsString('Laravel Sail', $output);
+        self::assertStringContainsString('sail up', $output);
+    }
 }

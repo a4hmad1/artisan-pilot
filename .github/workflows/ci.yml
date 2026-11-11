@@ -24,7 +24,7 @@ jobs:
       - run: php tools/release.php
       - uses: actions/upload-artifact@v4
         with:
-          name: artisan-shortcuts-source
+          name: artisan-pilot-source
           path: dist/*
 
   portable-cli:
@@ -48,7 +48,10 @@ jobs:
           tools: composer:v2
           coverage: none
       - run: composer install --no-interaction --prefer-dist
-      - run: composer test -- --exclude-group real-laravel
+      - if: runner.os != 'Windows'
+        run: composer test -- --exclude-group real-laravel
+      - if: runner.os == 'Windows'
+        run: composer test -- --exclude-group real-laravel,unix-sail
 
   laravel:
     strategy:
@@ -74,8 +77,11 @@ jobs:
           coverage: none
       - run: composer install --no-interaction --prefer-dist
       - run: php tools/prepare-fixture.php
-      - run: composer require --working-dir=tests/laravel "laravel/framework:^${{ matrix.laravel }}.0" --with-all-dependencies --no-interaction --prefer-dist
-      - run: composer test -- --fail-on-skipped
+      - run: composer update --working-dir=tests/laravel --with "laravel/framework:^${{ matrix.laravel }}.0" --no-interaction --prefer-dist
+      - if: runner.os != 'Windows'
+        run: composer test -- --fail-on-skipped
+      - if: runner.os == 'Windows'
+        run: composer test -- --exclude-group unix-sail --fail-on-skipped
 
   terminal-and-docker:
     runs-on: ubuntu-latest
@@ -83,11 +89,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
-          extensions: pcntl
+          php-version: '8.4'
+          extensions: pcntl, mbstring, dom, xml, pdo_sqlite
           tools: composer:v2
           coverage: none
       - run: composer install --no-interaction --prefer-dist
       - run: python3 tools/terminal-smoke.py
       - run: docker pull php:8.3-cli-alpine
       - run: python3 tools/docker-smoke.py
+      - run: php tools/prepare-fixture.php
+      - run: composer update --working-dir=tests/laravel --with "laravel/framework:^13.0" --no-interaction --prefer-dist
+      - run: docker pull php:8.4-fpm-alpine
+      - run: python3 tools/sail-smoke.py

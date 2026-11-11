@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-putenv('APP_ENV=testing');
+putenv('APP_ENV=local');
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -12,7 +12,11 @@ $app = \Illuminate\Foundation\Application::configure(basePath: __DIR__)
     ->withRouting(using: static function (): void {
         \Illuminate\Support\Facades\Route::get('/shortcuts-test', static fn () => 'OK');
     })
-    ->withProviders([\Laravel\Tinker\TinkerServiceProvider::class])
+    ->withProviders([
+        \Laravel\Tinker\TinkerServiceProvider::class,
+        \Laravel\Pail\PailServiceProvider::class,
+        \Laravel\Sail\SailServiceProvider::class,
+    ])
     ->withCommands([\App\Console\Commands\ProbeCommand::class])
     ->create();
 

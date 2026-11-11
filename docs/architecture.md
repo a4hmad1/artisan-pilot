@@ -1,6 +1,6 @@
 # Architecture
 
-The package is an out-of-process CLI client, not a Laravel service provider. Composer installs `pa` and ten fixed binaries. Each tiny entry point shares `bin/bootstrap.php`, loads Composer's generated autoloader (including local/global proxy support), and invokes `Application`.
+The package is an out-of-process CLI client, not a Laravel service provider. Composer installs `pilot`, the compatible `pa` entry point, and ten fixed binaries. Each tiny entry point shares `bin/bootstrap.php`, loads Composer's generated autoloader (including local/global proxy support), and invokes `Application`.
 
 - `Options`: parses only wrapper options before the command; keeps remaining tokens untouched.
 - `Project`: locates the nearest ancestor containing `artisan`, independently of the package install path.
@@ -9,7 +9,11 @@ The package is an out-of-process CLI client, not a Laravel service provider. Com
 - `CommandCatalog`: validates Artisan JSON, includes command aliases exposed by that JSON, deduplicates and sorts the current application's commands.
 - `Resolver`: stable fixed shortcuts, exact names, explicit project aliases, and generated initialisms; ambiguity fails closed.
 - `AliasStore`: validates project configuration; serializes concurrent read-modify-write operations with a persistent sidecar lock and replaces a same-directory temporary file atomically.
-- `Application`: orchestrates discovery, resolution, diagnostics, alias management, and error reporting.
+- `Application`: parses the entry point, handles help/raw mode, builds context, and routes to a registered wrapper module or Artisan.
+- `Console\CommandRegistry`: explicitly registers independent alias, diagnostics, command-browser, shortcut, and Sail handlers. Implementations follow `Console\Command`; `Application` accepts a registry for extension/testing.
+- `Console\Context`: owns per-invocation dependencies and lazily memoizes discovery. Alias listing/removal and direct Sail operations do not boot Laravel.
+
+Pail and other package Artisan commands flow through the normal registry without dedicated wrappers. `pilot sail` directly invokes the host Sail script; `--runner=sail` instead adds `artisan` to its forwarded arguments.
 
 No application source is loaded into the wrapper process. Application dependencies and framework internals cannot collide with wrapper dependencies. There are no runtime Composer dependencies apart from PHP, JSON, and Composer's runtime API.
 

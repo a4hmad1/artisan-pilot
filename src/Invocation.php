@@ -16,14 +16,7 @@ final class Invocation
     public function command(array $arguments, bool $interactive = false): array
     {
         if ($this->options->runner === 'sail') {
-            if (PHP_OS_FAMILY === 'Windows') {
-                throw new ShortcutException('Run Sail shortcuts in WSL, where Bash and Docker are available.');
-            }
-            $sail = $this->project . '/vendor/bin/sail';
-            if (!is_file($sail)) {
-                throw new ShortcutException('Sail is missing. Install laravel/sail or select --runner local.');
-            }
-            return ['bash', $sail, 'artisan', ...$arguments];
+            return $this->sail(['artisan', ...$arguments]);
         }
         if ($this->options->runner === 'docker') {
             $container = $this->options->container;
@@ -37,5 +30,19 @@ final class Invocation
             ];
         }
         return [$this->options->php, $this->project . '/artisan', ...$arguments];
+    }
+    /** @param list<string> $arguments
+     *  @return non-empty-list<string>
+     */
+    public function sail(array $arguments): array
+    {
+        if (PHP_OS_FAMILY === 'Windows') {
+            throw new ShortcutException('Run Sail shortcuts in WSL, where Bash and Docker are available.');
+        }
+        $sail = $this->project . '/vendor/bin/sail';
+        if (!is_file($sail)) {
+            throw new ShortcutException('Sail is missing. Install laravel/sail or select --runner local.');
+        }
+        return ['bash', $sail, ...$arguments];
     }
 }

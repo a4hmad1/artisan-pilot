@@ -6,7 +6,7 @@ import subprocess
 import uuid
 
 root = Path(__file__).resolve().parent.parent
-name = 'artisan-shortcuts-qa-' + uuid.uuid4().hex[:10]
+name = 'artisan-pilot-qa-' + uuid.uuid4().hex[:10]
 image = 'php:8.3-cli-alpine'
 started = False
 try:
@@ -18,7 +18,7 @@ try:
     ], check=True, capture_output=True, text=True)
     started = True
     command = [
-        'php', str(root / 'bin/pa'), '--project', str(root / 'tests/Fixtures'),
+        'php', str(root / 'bin/pilot'), '--project', str(root / 'tests/Fixtures'),
         '--runner=docker', '--container=' + name,
     ]
     result = subprocess.run(command + ['probe:args', 'literal space', '$(touch PWNED)'], capture_output=True, text=True)
