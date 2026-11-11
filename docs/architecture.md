@@ -1,10 +1,11 @@
 # Architecture
 
-The package is an out-of-process CLI client, not a Laravel service provider. Composer installs `pilot`, the compatible `pa` entry point, and ten fixed binaries. The fixed names (`pas`, `pam`, `pamm`, etc.) are the primary user interface. Each tiny entry point shares `bin/bootstrap.php`, loads Composer's generated autoloader (including local/global proxy support), and invokes `Application`.
+The package is an out-of-process CLI client, not a Laravel service provider. Composer installs the fixed Artisan/tool shortcut binaries, the `pa` management entry point, and optional `pilot` synonym. The fixed names (`pas`, `pam`, `pamm`, etc.) are the primary user interface. Each tiny entry point shares `bin/bootstrap.php`, loads Composer's generated autoloader (including local/global proxy support), and invokes `Application`.
 
 - `ShellIntegration`: exports fixed shortcuts, unique dynamic abbreviations, and valid custom names as quoted shell functions. Ambiguous names are omitted. `--shortcut=NAME` preserves wrapper option parsing for named invocation. No profile changes are performed.
 - `Options`: parses only wrapper options before the command; keeps remaining tokens untouched.
 - `Project`: locates the nearest ancestor containing `artisan`, independently of the package install path.
+- `ComposerTools` and `ToolShortcuts`: locate project PHP Composer binaries, reject unsafe names/non-PHP launchers, honor local bin configuration, and reserve the direct Pest/PHPUnit/Pint names.
 - `Invocation`: builds argument arrays for the explicit local, Sail, or Docker runner.
 - `Process`: bounded, file-backed noninteractive discovery capture and unbounded inherited-terminal execution. Unix PCNTL replaces the process; the portable fallback uses `proc_open` with shell bypass.
 - `CommandCatalog`: validates Artisan JSON, includes command aliases exposed by that JSON, deduplicates and sorts the current application's commands.

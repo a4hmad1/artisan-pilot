@@ -1,0 +1,921 @@
+{
+    "label": "laravel13",
+    "php": "8.5.4",
+    "framework": "Laravel Framework 13.42.0",
+    "commands": 130,
+    "shortcut_help_checks": 68,
+    "failures": [],
+    "scope": "Exact resolution and help execution. Destructive and long-running handlers are not executed.",
+    "results": [
+        {
+            "command": "_complete",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "about",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paa",
+            "shortcut_help": true
+        },
+        {
+            "command": "auth:clear-resets",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paacr",
+            "shortcut_help": true
+        },
+        {
+            "command": "cache:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "cache:forget",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pacf",
+            "shortcut_help": true
+        },
+        {
+            "command": "cache:prune-stale-tags",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pacpst",
+            "shortcut_help": true
+        },
+        {
+            "command": "channel:list",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pacl",
+            "shortcut_help": true
+        },
+        {
+            "command": "clear-compiled",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "completion",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "config:cache",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "config:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "config:publish",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pacp",
+            "shortcut_help": true
+        },
+        {
+            "command": "config:show",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pacs",
+            "shortcut_help": true
+        },
+        {
+            "command": "db",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "db:monitor",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "padm",
+            "shortcut_help": true
+        },
+        {
+            "command": "db:seed",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "db:show",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "db:table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "padt",
+            "shortcut_help": true
+        },
+        {
+            "command": "db:wipe",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "padw",
+            "shortcut_help": true
+        },
+        {
+            "command": "dev",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "dev:list",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "padl",
+            "shortcut_help": true
+        },
+        {
+            "command": "docs",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "down",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pad",
+            "shortcut_help": true
+        },
+        {
+            "command": "env",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pae",
+            "shortcut_help": true
+        },
+        {
+            "command": "env:decrypt",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paed",
+            "shortcut_help": true
+        },
+        {
+            "command": "env:encrypt",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paee",
+            "shortcut_help": true
+        },
+        {
+            "command": "event:cache",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "event:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "event:generate",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paeg",
+            "shortcut_help": true
+        },
+        {
+            "command": "event:list",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pael",
+            "shortcut_help": true
+        },
+        {
+            "command": "help",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pah",
+            "shortcut_help": true
+        },
+        {
+            "command": "install:api",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paia",
+            "shortcut_help": true
+        },
+        {
+            "command": "install:broadcasting",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paib",
+            "shortcut_help": true
+        },
+        {
+            "command": "invoke-serialized-closure",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paisc",
+            "shortcut_help": true
+        },
+        {
+            "command": "key:generate",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pakg",
+            "shortcut_help": true
+        },
+        {
+            "command": "lang:publish",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "palp",
+            "shortcut_help": true
+        },
+        {
+            "command": "list",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pal",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:cache-table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamct",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:cast",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:channel",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:class",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:command",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:component",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:config",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:controller",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamc",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:enum",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:event",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:exception",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:factory",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:interface",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:job",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamj",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:job-middleware",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamjm",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:listener",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paml",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:mail",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:middleware",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:migration",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:model",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamm",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:notification",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamn",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:notifications-table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamnt",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:observer",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamo",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:policy",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:provider",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:queue-batches-table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamqbt",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:queue-failed-table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamqft",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:queue-table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamqt",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:request",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:resource",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:rule",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:scope",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:seeder",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:session-table",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamst",
+            "shortcut_help": true
+        },
+        {
+            "command": "make:test",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:trait",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "make:view",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamv",
+            "shortcut_help": true
+        },
+        {
+            "command": "migrate",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pam",
+            "shortcut_help": true
+        },
+        {
+            "command": "migrate:fresh",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pamf",
+            "shortcut_help": true
+        },
+        {
+            "command": "migrate:install",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "migrate:refresh",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "migrate:reset",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "migrate:rollback",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "migrate:status",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "model:prune",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "model:show",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "optimize",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pao",
+            "shortcut_help": true
+        },
+        {
+            "command": "optimize:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paoc",
+            "shortcut_help": true
+        },
+        {
+            "command": "package:discover",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "papd",
+            "shortcut_help": true
+        },
+        {
+            "command": "pail",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pap",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqc",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:failed",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "queue:flush",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "queue:forget",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "queue:listen",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paql",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:monitor",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqm",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:pause",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqp",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:prune-batches",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqpb",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:prune-failed",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqpf",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:restart",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "queue:resume",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "queue:retry",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "queue:retry-batch",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqrb",
+            "shortcut_help": true
+        },
+        {
+            "command": "queue:work",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paqw",
+            "shortcut_help": true
+        },
+        {
+            "command": "reload",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "par",
+            "shortcut_help": true
+        },
+        {
+            "command": "route:cache",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "route:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "route:list",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "parl",
+            "shortcut_help": true
+        },
+        {
+            "command": "sail:add",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pasa",
+            "shortcut_help": true
+        },
+        {
+            "command": "sail:install",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "sail:publish",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "schedule:clear-cache",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pascc",
+            "shortcut_help": true
+        },
+        {
+            "command": "schedule:finish",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pasf",
+            "shortcut_help": true
+        },
+        {
+            "command": "schedule:interrupt",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "schedule:list",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "schedule:pause",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "schedule:resume",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "schedule:run",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "schedule:test",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "past",
+            "shortcut_help": true
+        },
+        {
+            "command": "schedule:work",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pasw",
+            "shortcut_help": true
+        },
+        {
+            "command": "schema:dump",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pasd",
+            "shortcut_help": true
+        },
+        {
+            "command": "serve",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pas",
+            "shortcut_help": true
+        },
+        {
+            "command": "session:garbage-collect",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pasgc",
+            "shortcut_help": true
+        },
+        {
+            "command": "shortcuts:probe-check",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paspc",
+            "shortcut_help": true
+        },
+        {
+            "command": "storage:link",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "storage:unlink",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pasu",
+            "shortcut_help": true
+        },
+        {
+            "command": "stub:publish",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "test",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "patt",
+            "shortcut_help": true
+        },
+        {
+            "command": "tinker",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pat",
+            "shortcut_help": true
+        },
+        {
+            "command": "up",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "paup",
+            "shortcut_help": true
+        },
+        {
+            "command": "vendor:publish",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": "pavp",
+            "shortcut_help": true
+        },
+        {
+            "command": "view:cache",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        },
+        {
+            "command": "view:clear",
+            "exact_resolution": true,
+            "native_help": true,
+            "shortcut": null,
+            "shortcut_help": null
+        }
+    ]
+}

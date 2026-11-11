@@ -20,6 +20,7 @@ shutil.copy(original / 'artisan', project / 'artisan')
 shutil.copy(original / 'composer.json', project / 'composer.json')
 (project / 'bootstrap').mkdir()
 shutil.copy(original / 'bootstrap/providers.php', project / 'bootstrap/providers.php')
+shutil.copy(original / 'bootstrap/app.php', project / 'bootstrap/app.php')
 (project / 'vendor').symlink_to(original / 'vendor', target_is_directory=True)
 for directory in ['bootstrap/cache', 'storage/framework/cache', 'storage/framework/views', 'storage/framework/sessions', 'storage/logs', 'public', 'app/Models']:
     (project / directory).mkdir(parents=True, exist_ok=True)

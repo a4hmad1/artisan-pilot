@@ -32,7 +32,7 @@ final class AliasStore
             );
         }
         if (
-            isset(Resolver::DEFAULTS[$name])
+            isset(Resolver::DEFAULTS[$name]) || isset(ToolShortcuts::DEFAULTS[$name])
             || in_array($name, $this->reservedNames, true)
             || in_array($name, $commands, true)
             || in_array($name, ['pa', 'pilot'], true)

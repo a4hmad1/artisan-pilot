@@ -33,5 +33,11 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "nunomaduro/collision": "^8.8",
+        "phpunit/phpunit": "^11.5",
+        "brianium/paratest": "^7.4",
+        "laravel/pint": "^1.20"
+    }
 }

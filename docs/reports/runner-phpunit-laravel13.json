@@ -1,0 +1,55 @@
+{
+    "mode": "phpunit",
+    "php": "8.5.4",
+    "versions": {
+        "brianium/paratest": "v7.8.6",
+        "laravel/framework": "v13.42.0",
+        "laravel/pint": "v1.32.3",
+        "nunomaduro/collision": "v8.9.6",
+        "phpunit/phpunit": "11.5.57"
+    },
+    "results": [
+        {
+            "case": "artisan-test-pass",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "artisan-test-fail",
+            "exit": 1,
+            "expected": 1,
+            "passed": true
+        },
+        {
+            "case": "artisan-test-parallel",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "direct-tool-pass",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "direct-tool-fail",
+            "exit": 1,
+            "expected": 1,
+            "passed": true
+        },
+        {
+            "case": "generic-tool",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "pint-check",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        }
+    ]
+}

@@ -79,7 +79,10 @@ final class CliTest extends TestCase
     public function testHelpVersionDiagnosticsAndDiscovery(): void
     {
         self::assertStringContainsString('Usage:', $this->cli(['--help'])[1]);
-        self::assertStringContainsString('1.0.0', $this->cli(['--version'])[1]);
+        self::assertMatchesRegularExpression(
+            '/^Artisan Pilot [0-9]+\.[0-9]+\.[0-9]+(?:-[a-zA-Z0-9.]+)?\R$/',
+            $this->cli(['--version'])[1]
+        );
         self::assertStringContainsString('Discovery: OK', $this->cli(['doctor'])[1]);
         $output = $this->cli(['shortcuts'])[1];
         self::assertStringContainsString('[AMBIGUOUS]', $output);

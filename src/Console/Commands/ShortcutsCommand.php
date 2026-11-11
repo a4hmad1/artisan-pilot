@@ -7,6 +7,8 @@ namespace ArtisanShortcuts\Console\Commands;
 use ArtisanShortcuts\Console\Command;
 use ArtisanShortcuts\Console\Context;
 use ArtisanShortcuts\Resolver;
+use ArtisanShortcuts\ToolShortcuts;
+use ArtisanShortcuts\ComposerTools;
 
 final class ShortcutsCommand implements Command
 {
@@ -29,9 +31,14 @@ final class ShortcutsCommand implements Command
                 $labels[$shortcut] .= ' [use full names: ' . implode(' | ', $alternatives) . ']';
             }
         }
+        foreach (ToolShortcuts::DEFAULTS as $shortcut => $tool) {
+            $index[$shortcut] = [rtrim(ComposerTools::directory($context->project), '/') . '/' . $tool];
+            $labels[$shortcut] = ' [PHP TOOL]';
+        }
         foreach ($context->aliases->all() as $shortcut => $target) {
             if (
-                !isset(Resolver::DEFAULTS[$shortcut]) && !in_array($shortcut, $commands, true)
+                !isset(Resolver::DEFAULTS[$shortcut]) && !isset(ToolShortcuts::DEFAULTS[$shortcut])
+                && !in_array($shortcut, $commands, true)
                 && !in_array($shortcut, $context->reservedNames, true)
             ) {
                 $index[$shortcut] = [json_encode($target, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)];

@@ -19,3 +19,5 @@ Do not install both packages together: they provide the same legacy executable n
 The PHP namespace `ArtisanShortcuts` is retained to avoid unnecessary source-level breakage. The main public entry point is now `pilot`; `pa` remains supported. Newly reserved management module names are `commands`, `sail`, and `shell`; an exact Artisan command with a reserved name is still available through `pilot -- COMMAND`.
 
 If an existing custom alias is named `commands`, `sail`, or `shell`, recreate it under another name with `alias:set`, then remove the old entry. Those names now select Pilot modules.
+
+Version 1.1 adds `patt` for Laravel testing and `papest`, `papu`, and `papint` for installed PHP tools. These names are now fixed/reserved. `pat` continues to mean Tinker. `bin` is a reserved management command; use raw mode for an Artisan command with that name.

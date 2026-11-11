@@ -3,28 +3,6 @@
 
 declare(strict_types=1);
 
-putenv('APP_ENV=local');
-
 require __DIR__ . '/vendor/autoload.php';
-
-$app = \Illuminate\Foundation\Application::configure(basePath: __DIR__)
-    ->withExceptions()
-    ->withRouting(using: static function (): void {
-        \Illuminate\Support\Facades\Route::get('/shortcuts-test', static fn () => 'OK');
-    })
-    ->withProviders([
-        \Laravel\Tinker\TinkerServiceProvider::class,
-        \Laravel\Pail\PailServiceProvider::class,
-        \Laravel\Sail\SailServiceProvider::class,
-    ])
-    ->withCommands([\App\Console\Commands\ProbeCommand::class])
-    ->create();
-
-$app->useEnvironmentPath(__DIR__);
-$app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-$app['config']->set('app.key', 'base64:' . base64_encode(str_repeat('x', 32)));
-$app['config']->set('database.default', 'sqlite');
-$app['config']->set('database.connections.sqlite', [
-    'driver' => 'sqlite', 'database' => ':memory:', 'prefix' => '', 'foreign_key_constraints' => true,
-]);
+$app = require __DIR__ . '/bootstrap/app.php';
 exit($app->handleCommand(new \Symfony\Component\Console\Input\ArgvInput()));

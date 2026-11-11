@@ -1,0 +1,62 @@
+{
+    "mode": "pest",
+    "php": "8.5.4",
+    "versions": {
+        "brianium/paratest": "v7.20.0",
+        "laravel/framework": "v11.57.1",
+        "laravel/pint": "v1.32.3",
+        "nunomaduro/collision": "v8.9.6",
+        "pestphp/pest": "v4.7.8",
+        "phpunit/phpunit": "12.5.33"
+    },
+    "results": [
+        {
+            "case": "artisan-test-pass",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "artisan-test-fail",
+            "exit": 1,
+            "expected": 1,
+            "passed": true
+        },
+        {
+            "case": "artisan-test-parallel",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "direct-tool-pass",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "direct-tool-fail",
+            "exit": 1,
+            "expected": 1,
+            "passed": true
+        },
+        {
+            "case": "generic-tool",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "pint-check",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        },
+        {
+            "case": "pest-parallel",
+            "exit": 0,
+            "expected": 0,
+            "passed": true
+        }
+    ]
+}

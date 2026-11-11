@@ -100,7 +100,9 @@ jobs:
       - run: php tools/prepare-fixture.php
       - run: composer update --working-dir=tests/laravel --with "laravel/framework:^13.0" --no-interaction --prefer-dist
       - run: docker pull php:8.4-fpm-alpine
-      - run: python3 tools/sail-smoke.py
+      - run: php tools/prepare-test-runner.php pest 13
+      - run: composer install --working-dir=build/runners/pest-13 --no-interaction --prefer-dist
+      - run: python3 tools/sail-smoke.py build/runners/pest-13
 
   bare-shortcuts:
     runs-on: ubuntu-latest
@@ -116,3 +118,53 @@ jobs:
       - run: php tools/prepare-fixture.php
       - run: composer update --working-dir=tests/laravel --with "laravel/framework:^12.0" --no-interaction --prefer-dist
       - run: python3 tools/bare-shortcuts-smoke.py
+
+  test-runners:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { mode: phpunit, php: '8.2', laravel: '11' }
+          - { mode: pest, php: '8.2', laravel: '11' }
+          - { mode: phpunit, php: '8.3', laravel: '12' }
+          - { mode: pest, php: '8.3', laravel: '12' }
+          - { mode: phpunit, php: '8.5', laravel: '13' }
+          - { mode: pest, php: '8.5', laravel: '13' }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pcntl, mbstring, dom, xml, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: php tools/prepare-test-runner.php ${{ matrix.mode }} ${{ matrix.laravel }}
+      - run: composer install --working-dir=build/runners/${{ matrix.mode }}-${{ matrix.laravel }} --no-interaction --prefer-dist
+      - run: php tools/test-runners-smoke.php ${{ matrix.mode }} ${{ matrix.laravel }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runner-${{ matrix.mode }}-${{ matrix.laravel }}
+          path: build/qa/runners/
+
+  command-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, dom, xml, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: php tools/prepare-fixture.php
+      - run: composer update --working-dir=tests/laravel --with 'laravel/framework:^13.0' --no-interaction --prefer-dist
+      - run: php tools/audit-commands.php tests/laravel laravel13
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: discovered-command-audit
+          path: build/qa/commands/

@@ -9,10 +9,10 @@ final class Resolver
     public const DEFAULTS = [
         'pas' => 'serve', 'pat' => 'tinker', 'pad' => 'down', 'paup' => 'up',
         'pam' => 'migrate', 'pamf' => 'migrate:fresh', 'pamm' => 'make:model',
-        'pamc' => 'make:controller', 'parl' => 'route:list', 'paoc' => 'optimize:clear',
+        'pamc' => 'make:controller', 'parl' => 'route:list', 'paoc' => 'optimize:clear', 'patt' => 'test',
     ];
     public const INTERNAL = [
-        'help', 'commands', 'shortcuts', 'doctor', 'alias:set', 'alias:remove', 'alias:list', 'sail', 'shell',
+        'help', 'commands', 'shortcuts', 'doctor', 'alias:set', 'alias:remove', 'alias:list', 'sail', 'shell', 'bin',
     ];
 
     /** @param list<string> $commands

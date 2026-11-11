@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- Add `patt` for Laravel's test command and direct `papest`, `papu`, and `papint` binaries.
+- Run installed PHP Composer tools through `pa bin`, with local custom bin directories and explicit Sail/Docker runners.
+- Add independent PHPUnit and Pest integration projects with success/failure, filters, parallel execution, and Pint checks.
+- Audit every discovered Artisan command through exact resolution and safe help execution, including available shortcut help.
+- Refresh the README with an original light/dark wordmark, centered badges, and focused installation/testing documentation.
+
 ## 1.0.0
 
 - Restore the original shortcut-first workflow: `pas`, `pam`, `pamm`, and all ten fixed commands are the primary interface.

@@ -4,10 +4,11 @@ from pathlib import Path
 import json
 import os
 import subprocess
+import sys
 import uuid
 
 root = Path(__file__).resolve().parent.parent
-fixture = root / 'tests/laravel'
+fixture = (root / sys.argv[1]).resolve() if len(sys.argv) > 1 else root / 'tests/laravel'
 project = 'artisan-pilot-qa-' + uuid.uuid4().hex[:10]
 work = root / 'build' / project
 work.mkdir(parents=True)
@@ -22,7 +23,7 @@ compose.write_text(json.dumps({'services': {'laravel.test': {
 }}}, indent=2))
 env = dict(os.environ, COMPOSE_FILE=str(compose), COMPOSE_PROJECT_NAME=project,
            APP_SERVICE='laravel.test', WWWUSER=str(os.getuid()), WWWGROUP=str(os.getgid()))
-command = ['php', str(root / 'bin/pilot'), '--project', str(fixture)]
+command = ['php', str(root / 'bin/pa'), '--project', str(fixture)]
 
 def run(args):
     return subprocess.run(command + args, env=env, cwd=fixture, capture_output=True, text=True, timeout=60)
@@ -42,7 +43,23 @@ try:
     assert result.returncode == 0 and '--filter' in result.stdout, result.stdout + result.stderr
     result = run(['--runner=sail', 'migrate', '--no-interaction'])
     assert result.returncode == 0, result.stdout + result.stderr
-    print('Real Sail smoke passed: startup, Laravel discovery, Pail help, literal arguments, exit 42, SQLite migration.')
+    result = run(['--runner=sail', 'patt', '--filter=PilotPassingTest', '--parallel', '--processes=2', '--no-ansi'])
+    assert result.returncode == 0, result.stdout + result.stderr
+    result = run(['--runner=sail', 'bin', 'phpunit', 'tests/Unit/PilotPassingTest.php'])
+    assert result.returncode == 0, result.stdout + result.stderr
+    result = run(['--runner=sail', 'papint', '--test', '--preset=psr12', 'tests/Unit/PilotPassingTest.php'])
+    assert result.returncode == 0, result.stdout + result.stderr
+    container = subprocess.run(['docker', 'compose', 'ps', '-q', 'laravel.test'], env=env, cwd=fixture,
+                               capture_output=True, text=True, check=True).stdout.strip()
+    docker_args = ['--runner=docker', '--container=' + container, '--container-workdir=' + str(fixture)]
+    result = run(docker_args + ['bin', 'phpunit', 'tests/Unit/PilotPassingTest.php'])
+    assert result.returncode == 0, result.stdout + result.stderr
+    if (fixture / 'vendor/bin/pest').exists():
+        result = run(['--runner=sail', 'papest', '--parallel', '--processes=2', '--filter=pilot_pest_case'])
+        assert result.returncode == 0, result.stdout + result.stderr
+        result = run(docker_args + ['papest', '--filter=pilot_pest_case'])
+        assert result.returncode == 0, result.stdout + result.stderr
+    print('Real Sail/Docker smoke passed: lifecycle, discovery, Pail, PHPUnit/Pest, parallel tests, Pint, exit codes and SQLite.')
 finally:
     subprocess.run(['docker', 'compose', 'down', '--remove-orphans'], env=env, cwd=fixture,
                    capture_output=True, check=True, timeout=60)

@@ -18,6 +18,7 @@ final class ShellIntegration
         $resolver = new Resolver();
         $names = array_values(array_unique([
             ...array_keys(Resolver::DEFAULTS),
+            ...array_keys(ToolShortcuts::DEFAULTS),
             ...array_keys($resolver->abbreviations($commands)),
             ...array_keys($aliases),
         ]));
@@ -26,7 +27,7 @@ final class ShellIntegration
             if (!preg_match('/^[a-z][a-z0-9_]*$/D', $name) || in_array($name, ['pa', 'pilot', ...$reserved], true)) {
                 continue;
             }
-            if (!isset(Resolver::DEFAULTS[$name])) {
+            if (!isset(Resolver::DEFAULTS[$name]) && !isset(ToolShortcuts::DEFAULTS[$name])) {
                 try {
                     $resolver->resolve($name, $commands, $aliases);
                 } catch (ShortcutException) {

@@ -1,6 +1,6 @@
 {
     "name": "a4hmad1/artisan-pilot",
-    "description": "Type pas, pam, pamm and other shortcuts instead of long Laravel Artisan commands.",
+    "description": "Short terminal commands for Laravel Artisan, Pest, PHPUnit and Pint.",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -10,7 +10,11 @@
         "shortcuts",
         "sail",
         "pail",
-        "pilot"
+        "pilot",
+        "testing",
+        "pest",
+        "phpunit",
+        "pint"
     ],
     "homepage": "https://github.com/a4hmad1/artisan-pilot",
     "support": {
@@ -49,6 +53,10 @@
         "bin/pamc",
         "bin/parl",
         "bin/paoc",
+        "bin/patt",
+        "bin/papest",
+        "bin/papu",
+        "bin/papint",
         "bin/pilot"
     ],
     "scripts": {
@@ -85,5 +93,11 @@
             "/.artisan-shortcuts.json",
             "/.artisan-shortcuts.json.lock"
         ]
+    },
+    "suggest": {
+        "nunomaduro/collision": "Provides the Laravel test command for patt when not already installed.",
+        "pestphp/pest": "Run application Pest tests with papest.",
+        "phpunit/phpunit": "Run application PHPUnit tests with papu.",
+        "laravel/pint": "Run application Pint checks with papint."
     }
 }

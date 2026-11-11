@@ -35,7 +35,8 @@ final class Application
         if ($options->shortcut !== '') {
             $binary = $options->shortcut;
         }
-        $isShortcut = $options->shortcut !== '' || isset(Resolver::DEFAULTS[$binary]);
+        $isShortcut = $options->shortcut !== ''
+            || isset(Resolver::DEFAULTS[$binary]) || isset(ToolShortcuts::DEFAULTS[$binary]);
         $registry = $this->registry ?? CommandRegistry::defaults();
         if (!$isShortcut && !$options->direct) {
             if ($arguments === [] || in_array($arguments, [['help'], ['--help'], ['-h']], true)) {
@@ -76,6 +77,9 @@ final class Application
         }
         if ($name === null) {
             throw new ShortcutException('Expected a command.');
+        }
+        if (isset(ToolShortcuts::DEFAULTS[$name])) {
+            return $process->run($invocation->tool(ToolShortcuts::DEFAULTS[$name], $arguments, true), $project);
         }
         $reserved = ['help', ...$registry->names()];
         $store = new AliasStore($project, $reserved);
