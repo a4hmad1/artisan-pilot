@@ -27,6 +27,8 @@ papest --filter=PostTest
 papu --testsuite=Unit
 ```
 
+Place wrapper options before tool arguments. Insert `--` to pass through an option that shares a wrapper name, for example `papest -- --runner=custom`.
+
 The target test process inherits stdin, stdout, stderr, and environment variables. Its normal exit code is returned unchanged. Arguments stay separate, including filter values with spaces. The wrapper does not add force flags, runner configuration, or hidden test options.
 
 ## Parallel execution

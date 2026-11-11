@@ -13,7 +13,7 @@ Local environment: Linux, PHP 8.5.4 CLI with PCNTL, Composer 2.9.5. Verification
 - Full registry audit: **376 command registrations** across Laravel 11/12/13 passed exact resolution and native help checks. **200 shortcut help comparisons** matched their native targets. See the [full command audit and JSON evidence](command-support.md).
 - Six separate PHPUnit/Pest projects passed **45 actual runner checks**: success/failure exit codes, filters, parallel execution, direct/generic PHP tool entry points, and Pint. Pest 4.7.8 was verified with Laravel 11/12; Pest 5.3.5 with Laravel 13.
 - Real Sail and Docker execution additionally passed PHPUnit/Pest, parallel testing, and Pint checks using the Pest 13 fixture.
-- The README was redesigned with centered project branding, truthful status badges, an original light/dark SVG wordmark, and linked usage/testing/command audit guides. Both SVG themes were rendered and visually inspected; the complete GitHub Markdown layout has not been browser-inspected.
+- The README was redesigned with centered project branding, truthful status badges, an original light/dark SVG wordmark, and linked usage/testing/command audit guides. Both SVG themes were rendered and visually inspected. GitHub's Markdown API rendered the README successfully (5 images with alt text, 1 table, 7 code blocks), and local link targets were checked. The complete GitHub layout has not been browser-inspected.
 - Tinker 3.1.0 and Sail 1.70.0 were installed in the integration fixture. Pail/Sail command discovery, native Pail help, installed `pilot` proxies, and Sail's own help/exit status were verified.
 - The local PHP 8.5 host is outside Laravel 11's published support range; CI covers PHP 8.2/8.4 for Laravel 11.
 - Fixed Artisan names (including `patt`) executed as bare Bash commands, without `pa`/`pilot` prefixes, against a controlled Artisan fixture.
@@ -29,6 +29,7 @@ Local environment: Linux, PHP 8.5.4 CLI with PCNTL, Composer 2.9.5. Verification
 - Real Sail/Compose smoke passed against Laravel 13 in an isolated PHP 8.4 container: `pilot sail up -d`, discovery through `--runner=sail`, Pail help, custom arguments, exit 42, and in-memory SQLite migration. The disposable Compose service was removed afterward. Script: `tools/sail-smoke.py`.
 - Unix PTY smoke passed: stdin/stdout are terminals, wrapper PID is retained by the executed command, and Ctrl-C terminates it with SIGINT. Script: `tools/terminal-smoke.py`.
 - Real Docker runner smoke passed using the existing `php:8.3-cli-alpine` image and a disposable container. Discovery, literal arguments, stdin/stdout/stderr, exit code 42, and ambiguity output passed. The container was stopped after the test. Script: `tools/docker-smoke.py`.
+- The v1.1 source archive was installed into clean local and isolated global Composer homes. All 16 binaries were present, and the new direct/activated test-tool entry points preserved literal arguments. The default Packagist endpoint still returned 404 at final publication checking.
 - Source ZIP and Composer consumer archive checked for generated dependencies. Source ZIP includes tests/tooling; consumer archive excludes them.
 
 ## Scope and remaining checks
@@ -43,6 +44,6 @@ GitHub publication and Packagist registration are separate. Until Packagist subm
 
 ## Hosted CI publication result
 
-The complete source was published to `main`. GitHub Actions run [43104819669](https://github.com/a4hmad1/artisan-pilot/actions/runs/43104819669) created the matrix jobs, but none started. GitHub's job annotation states: **"The job was not started because your account is locked due to a billing issue."** There are no hosted test results or release artifacts from that run.
+The complete source was published to `main`. GitHub Actions run [43114549562](https://github.com/a4hmad1/artisan-pilot/actions/runs/43114549562) created the matrix jobs, but none started. GitHub's job annotation states: **"The job was not started because your account is locked due to a billing issue."** There are no hosted test results or release artifacts from that run.
 
 The account owner must resolve the GitHub billing lock and rerun CI. Local checks remain the evidence listed above; hosted Windows/macOS/PHP matrix checks must not be represented as passed. The shortcut-first 1.0.0 package is published with the local evidence above. Hosted Windows/macOS/PHP-matrix coverage remains unavailable because of the account billing lock; a stable version tag must not be represented as a passing hosted CI result.
