@@ -31,7 +31,6 @@ final class ShellIntegration
                 try {
                     $resolver->resolve($name, $commands, $aliases);
                 } catch (ShortcutException) {
-                    // Ambiguous and stale mappings must never become executable shell functions.
                     continue;
                 }
             }
@@ -47,7 +46,7 @@ final class ShellIntegration
         if (!in_array($shell, self::SHELLS, true)) {
             throw new ShortcutException('Shell must be bash, zsh, fish, or powershell.');
         }
-        $script = "# Artisan shortcuts for this shell session. No profile files are changed.\n";
+        $script = '';
         foreach ($names as $name) {
             if (!preg_match('/^[a-z][a-z0-9_]*$/D', $name)) {
                 throw new ShortcutException('Unsafe shell shortcut name.');

@@ -126,7 +126,6 @@ final class LaravelTest extends TestCase
             self::markTestSkipped('Native Sail runs on Windows via WSL.');
         }
         [$status, $output, $error] = $this->cli(['--project', $this->fixture(), 'sail', '--help'], 'pilot');
-        // Sail intentionally exits 1 for its own help; preserve the upstream status.
         self::assertSame(1, $status, $error);
         self::assertStringContainsString('Laravel Sail', $output);
         self::assertStringContainsString('sail up', $output);

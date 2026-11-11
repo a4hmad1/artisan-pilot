@@ -12,7 +12,6 @@ final class Process
         if (!function_exists('proc_open')) {
             throw new ShortcutException('PHP proc_open is disabled. Enable it in your CLI PHP configuration.');
         }
-        // File-backed capture avoids Windows pipe blocking and stdout/stderr deadlocks.
         $stdout = tmpfile();
         $stderr = tmpfile();
         if ($stdout === false || $stderr === false) {
@@ -91,9 +90,7 @@ final class Process
         }
     }
 
-    /** Replace the process on Unix; inherit terminal streams on other platforms.
-     *  @param non-empty-list<string> $command
-     */
+    /** @param non-empty-list<string> $command */
     public function run(array $command, string $cwd): int
     {
         if (function_exists('pcntl_exec') && PHP_OS_FAMILY !== 'Windows') {
@@ -101,7 +98,6 @@ final class Process
                 throw new ShortcutException("Cannot enter project: {$cwd}");
             }
             $binary = array_shift($command);
-            // pcntl_exec does not search PATH. Resolve runner executables explicitly.
             if (!str_contains($binary, '/')) {
                 $binary = $this->executable($binary);
             }

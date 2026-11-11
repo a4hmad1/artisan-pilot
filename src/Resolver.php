@@ -40,7 +40,6 @@ final class Resolver
      */
     public function resolve(string $name, array $commands, array $aliases): array
     {
-        // Fixed shortcuts and exact command names never change meaning as commands are added.
         if (isset(self::DEFAULTS[$name])) {
             $target = self::DEFAULTS[$name];
             if (!in_array($target, $commands, true)) {

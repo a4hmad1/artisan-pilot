@@ -13,7 +13,9 @@ use ArtisanShortcuts\Console\Commands\DoctorCommand;
 use ArtisanShortcuts\Console\Commands\SailCommand;
 use ArtisanShortcuts\Console\Commands\ShortcutsCommand;
 use ArtisanShortcuts\Console\Commands\ShellCommand;
+use ArtisanShortcuts\Resolver;
 use ArtisanShortcuts\ShortcutException;
+use ArtisanShortcuts\ToolShortcuts;
 
 final class CommandRegistry
 {
@@ -42,8 +44,8 @@ final class CommandRegistry
         }
         if (
             in_array($name, ['help', 'pa', 'pilot'], true)
-            || isset(\ArtisanShortcuts\Resolver::DEFAULTS[$name])
-            || isset(\ArtisanShortcuts\ToolShortcuts::DEFAULTS[$name])
+            || isset(Resolver::DEFAULTS[$name])
+            || isset(ToolShortcuts::DEFAULTS[$name])
         ) {
             throw new ShortcutException("Reserved wrapper command: {$name}");
         }

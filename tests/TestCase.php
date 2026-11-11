@@ -26,9 +26,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         rmdir($this->directory);
     }
 
-    /** @param list<string> $arguments
-     *  @return array{int, string, string}
-     */
     protected function cli(
         array $arguments,
         string $binary = 'pa',

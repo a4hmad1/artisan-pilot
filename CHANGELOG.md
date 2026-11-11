@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1
+
+- Extract immutable local, Sail, and Docker execution strategies behind a shared runner contract.
+- Select the runtime once and allow explicit runner injection without changing command dispatch.
+- Remove prose comments and generated shell comments; retain PHPStan type contracts and required executable syntax.
+- Document dependency boundaries, extension points, and configuration snapshot behavior.
+
 ## 1.1.0
 
 - Add `patt` for Laravel's test command and direct `papest`, `papu`, and `papint` binaries.

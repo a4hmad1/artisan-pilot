@@ -4,10 +4,23 @@ declare(strict_types=1);
 
 namespace ArtisanShortcuts;
 
-final class Invocation
+use ArtisanShortcuts\Execution\DockerRunner;
+use ArtisanShortcuts\Execution\LocalRunner;
+use ArtisanShortcuts\Execution\Runner;
+use ArtisanShortcuts\Execution\SailRunner;
+
+final readonly class Invocation
 {
-    public function __construct(private readonly string $project, private readonly Options $options)
+    private Runner $runner;
+
+    public function __construct(private string $project, Options $options, ?Runner $runner = null)
     {
+        $this->runner = $runner ?? match ($options->runner) {
+            'local' => new LocalRunner($project, $options->php),
+            'sail' => new SailRunner($project),
+            'docker' => new DockerRunner($project, $options->container, $options->containerWorkdir),
+            default => throw new ShortcutException('Runner must be local, sail, or docker.'),
+        };
     }
 
     /** @param list<string> $arguments
@@ -15,57 +28,23 @@ final class Invocation
      */
     public function command(array $arguments, bool $interactive = false): array
     {
-        if ($this->options->runner === 'sail') {
-            return $this->sail(['artisan', ...$arguments]);
-        }
-        if ($this->options->runner === 'docker') {
-            return $this->docker(['php', 'artisan', ...$arguments], $interactive);
-        }
-        return [$this->options->php, $this->project . '/artisan', ...$arguments];
+        return $this->runner->artisan($arguments, $interactive);
     }
+
     /** @param list<string> $arguments
      *  @return non-empty-list<string>
      */
     public function sail(array $arguments): array
     {
-        if (PHP_OS_FAMILY === 'Windows') {
-            throw new ShortcutException('Run Sail shortcuts in WSL, where Bash and Docker are available.');
-        }
-        $sail = $this->project . '/vendor/bin/sail';
-        if (!is_file($sail)) {
-            throw new ShortcutException('Sail is missing. Install laravel/sail or select --runner local.');
-        }
-        return ['bash', $sail, ...$arguments];
+        return (new SailRunner($this->project))->command($arguments);
     }
+
     /** @param list<string> $arguments
      *  @return non-empty-list<string>
      */
     public function tool(string $name, array $arguments, bool $interactive = false): array
     {
         ComposerTools::validateName($name);
-        if ($this->options->runner === 'sail') {
-            return $this->sail(['bin', $name, ...$arguments]);
-        }
-        if ($this->options->runner === 'docker') {
-            $path = rtrim(ComposerTools::directory($this->project), '/') . '/' . $name;
-            return $this->docker(['php', $path, ...$arguments], $interactive);
-        }
-        return [$this->options->php, ComposerTools::path($this->project, $name), ...$arguments];
-    }
-
-    /** @param non-empty-list<string> $arguments
-     *  @return non-empty-list<string>
-     */
-    private function docker(array $arguments, bool $interactive): array
-    {
-        $container = $this->options->container;
-        if (!preg_match('/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/D', $container)) {
-            throw new ShortcutException('Docker requires --container NAME (a container name or ID).');
-        }
-        $tty = $interactive && stream_isatty(STDIN) && stream_isatty(STDOUT);
-        return [
-            'docker', 'exec', ...($interactive ? ['-i'] : []), ...($tty ? ['-t'] : []),
-            '--workdir', $this->options->containerWorkdir, $container, ...$arguments,
-        ];
+        return $this->runner->tool($name, $arguments, $interactive);
     }
 }

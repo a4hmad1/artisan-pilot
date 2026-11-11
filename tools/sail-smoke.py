@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Real Sail + Laravel smoke using an isolated Compose service and existing image."""
 from pathlib import Path
 import json
 import os
@@ -13,7 +12,6 @@ project = 'artisan-pilot-qa-' + uuid.uuid4().hex[:10]
 work = root / 'build' / project
 work.mkdir(parents=True)
 compose = work / 'compose.yaml'
-# JSON is valid YAML; use exact strings for paths, avoiding shell/YAML interpolation.
 compose.write_text(json.dumps({'services': {'laravel.test': {
     'image': 'php:8.4-fpm-alpine',
     'command': ['sh', '-c', 'adduser -D -u ' + str(os.getuid()) + ' sail && exec sleep 300'],

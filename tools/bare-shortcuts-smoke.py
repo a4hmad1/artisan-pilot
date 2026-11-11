@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Exercise bare pas/pamm/pam commands in a disposable real Laravel application."""
 from pathlib import Path
 import json
 import os

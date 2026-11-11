@@ -2,7 +2,15 @@
 
 Local environment: Linux, PHP 8.5.4 CLI with PCNTL, Composer 2.9.5. Verification performed November 11–12, 2026.
 
-## Completed
+## 1.1.1 refactor verification
+
+The patch extracts immutable local, Sail, and Docker strategies behind `Execution\Runner`, retains literal argument arrays, and allows explicit runner injection. Runtime configuration is captured at invocation construction. Prose comments and generated shell comments were removed; PHPStan type contracts and executable syntax remain.
+
+The final code passed strict Composer validation, PSR-12, PHPStan level 8, and **128 tests / 558 assertions** against the Laravel 11.57.1 fixture. The six existing Laravel 11/12/13 PHPUnit/Pest projects again passed **45 runner checks**, including deliberate failing tests returning exit 1, parallel execution, filtering, and Pint. Real Docker, Sail, bare shortcut, and PTY smoke checks passed again. The complete help audit also passed again: 121/125/130 exact command checks and 65/67/68 shortcut comparisons, with zero failures. The results match the published JSON snapshots. The full 128-test suite was rerun on Laravel 11 only for this patch; the prior Laravel 12/13 full-suite evidence below belongs to 1.1.0.
+
+The default Packagist metadata endpoint still returned HTTP 404 on November 12. GitHub-hosted Windows/macOS/PHP matrix results remain unavailable under the account billing lock described below.
+
+## 1.1.0 completed checks
 
 - Composer manifest validation in strict mode.
 - PSR-12 checks with PHP_CodeSniffer (source and tests), with no remaining warnings.

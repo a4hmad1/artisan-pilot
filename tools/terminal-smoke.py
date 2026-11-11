@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Unix PTY smoke: inherited terminal, Unix process replacement, Ctrl-C."""
 from pathlib import Path
 import os
 import pty
@@ -19,7 +18,6 @@ try:
         if select.select([master], [], [], 0.2)[0]:
             output += os.read(master, 8192)
     assert b'TTY=yes' in output, output
-    # The command is the wrapper process after pcntl_exec, not a detached child.
     assert ('PID=' + str(pid)).encode() in output, output
     os.write(master, b'\x03')
     while time.monotonic() < deadline:

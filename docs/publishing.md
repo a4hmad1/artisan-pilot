@@ -33,21 +33,21 @@ The earlier renamed package was published as `v1.0.0-rc.1`, with `src/Version.ph
 
 ## 3. Publish a stable version for one-command installation
 
-Version 1.0.0 restores the original shortcut-first workflow. After the applicable checks pass and the changelog is final:
+Version 1.1.1 preserves the shortcut-first workflow and isolates local, Sail, and Docker execution strategies. After the applicable checks pass and the changelog is final:
 
 ```bash
-git tag -a v1.0.0 -m "Artisan Pilot 1.0.0"
-git push origin v1.0.0
+git tag -a v1.1.1 -m "Artisan Pilot 1.1.1"
+git push origin v1.1.1
 ```
 
-A tag workflow checks the source, builds `artisan-pilot-1.0.0.zip` and a SHA-256 checksum, and uploads both to a GitHub Release. Do not overwrite published tags. Fix release defects with a new patch release.
+A tag workflow checks the source, builds `artisan-pilot-1.1.1.zip` and a SHA-256 checksum, and uploads both to a GitHub Release. Do not overwrite published tags. Fix release defects with a new patch release.
 
 ## 4. Register on Packagist
 
 1. Sign into <https://packagist.org/> with the account authorized to publish under `a4hmad1`.
 2. Open <https://packagist.org/packages/submit>.
 3. Submit `https://github.com/a4hmad1/artisan-pilot.git`.
-4. Confirm Packagist detects `a4hmad1/artisan-pilot`, the MIT license, PHP requirement, binaries, and `v1.0.0`.
+4. Confirm Packagist detects `a4hmad1/artisan-pilot`, the MIT license, PHP requirement, binaries, and `v1.1.1`.
 5. Enable Packagist's GitHub integration/auto-update hook using the instructions shown in your Packagist account. Configure any required credentials in service settings, never in this repository.
 6. Check <https://packagist.org/packages/a4hmad1/artisan-pilot>. If a tag is missing, use the package's Update action and inspect its update log.
 

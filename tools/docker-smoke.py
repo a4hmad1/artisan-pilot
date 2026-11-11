@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Exercise the real Docker runner with a disposable, network-isolated container."""
 from pathlib import Path
 import json
 import subprocess

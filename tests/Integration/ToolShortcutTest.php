@@ -13,7 +13,6 @@ final class ToolShortcutTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Tool execution must not need Artisan discovery or a working Laravel bootstrap.
         file_put_contents($this->directory . '/artisan', '<?php exit(99);');
         mkdir($this->directory . '/vendor/bin', 0700, true);
         foreach (ToolShortcuts::DEFAULTS as $tool) {
