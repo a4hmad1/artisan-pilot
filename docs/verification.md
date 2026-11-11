@@ -15,6 +15,7 @@ Local environment: Linux, PHP 8.5.4 CLI with PCNTL, Composer 2.9.5. Verification
 - Ambiguities, missing targets, reserved names, malformed JSON, alias replacement/removal, eight concurrent alias writers, and execution without PCNTL tested.
 - Production migration cancellation and noninteractive confirmation cancellation verified against real Laravel. No implicit force flags are added.
 - Discovery timeout, output limit, simultaneous stdout/stderr output, and nonzero discovery failures tested.
+- Fresh Composer VCS installation downloaded the published package directly from GitHub and successfully ran diagnostics, a custom command, and route listing.
 - Clean local Composer install and isolated `composer global install` from the extracted release ZIP; generated proxy binaries ran diagnostics, a custom Laravel command, and route listing.
 - Unix PTY smoke passed: stdin/stdout are terminals, wrapper PID is retained by the executed command, and Ctrl-C terminates it with SIGINT. Script: `tools/terminal-smoke.py`.
 - Real Docker runner smoke passed using the existing `php:8.3-cli-alpine` image and a disposable container. Discovery, literal arguments, stdin/stdout/stderr, exit code 42, and ambiguity output passed. The container was stopped after the test. Script: `tools/docker-smoke.py`.
@@ -29,3 +30,9 @@ The Docker test uses a controlled Artisan fixture to isolate runner behavior. A 
 The root package has no runtime third-party dependencies. The Laravel 11 fixture intentionally permits an end-of-life framework with known upstream advisories **only for compatibility testing**; this policy is not distributed to consumer applications.
 
 GitHub publication and Packagist registration are separate. Until Packagist submission is completed, use the README's Composer VCS repository installation. Future Laravel major versions are not guaranteed before testing. No stable release tag is created automatically during development.
+
+## Hosted CI publication result
+
+The complete source was published to `main`. GitHub Actions run [43101588783](https://github.com/a4hmad1/Shortcut-arsitan---laravel-/actions/runs/43101588783) created the matrix jobs, but none started. GitHub's job annotation states: **"The job was not started because your account is locked due to a billing issue."** There are no hosted test results or release artifacts from that run.
+
+The account owner must resolve the GitHub billing lock and rerun CI. Local checks remain the evidence listed above; hosted Windows/macOS/PHP matrix checks must not be represented as passed. No stable tag has been created while those checks remain unavailable.
