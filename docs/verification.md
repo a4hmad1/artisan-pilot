@@ -17,8 +17,8 @@ Local environment: Linux, PHP 8.5.4 CLI with PCNTL, Composer 2.9.5. Verification
 - Ambiguities, missing targets, reserved names, malformed JSON, alias replacement/removal, eight concurrent alias writers, and execution without PCNTL tested.
 - Production migration cancellation and noninteractive confirmation cancellation verified against real Laravel. No implicit force flags are added.
 - Discovery timeout, output limit, simultaneous stdout/stderr output, and nonzero discovery failures tested.
-- Fresh Composer VCS installation downloaded the published package directly from GitHub and successfully ran diagnostics, a custom command, and route listing.
-- Clean local Composer install and isolated `composer global install` from the extracted release ZIP; generated proxy binaries ran diagnostics, a custom Laravel command, and route listing.
+- Fresh Composer VCS installation downloaded `a4hmad1/artisan-pilot` directly from the renamed GitHub repository and successfully ran `pilot commands pail --json`, native Pail help, legacy `pa` custom-command execution, and `parl` route listing.
+- Clean local Composer install and isolated `composer global install` from the renamed release ZIP: all 12 proxy binaries were created; `pilot` command browsing, legacy `pa` execution, and `pamm` native command help passed.
 - Real Sail/Compose smoke passed against Laravel 13 in an isolated PHP 8.4 container: `pilot sail up -d`, discovery through `--runner=sail`, Pail help, custom arguments, exit 42, and in-memory SQLite migration. The disposable Compose service was removed afterward. Script: `tools/sail-smoke.py`.
 - Unix PTY smoke passed: stdin/stdout are terminals, wrapper PID is retained by the executed command, and Ctrl-C terminates it with SIGINT. Script: `tools/terminal-smoke.py`.
 - Real Docker runner smoke passed using the existing `php:8.3-cli-alpine` image and a disposable container. Discovery, literal arguments, stdin/stdout/stderr, exit code 42, and ambiguity output passed. The container was stopped after the test. Script: `tools/docker-smoke.py`.
@@ -36,6 +36,6 @@ GitHub publication and Packagist registration are separate. Until Packagist subm
 
 ## Hosted CI publication result
 
-The complete source was published to `main`. GitHub Actions run [43101588783](https://github.com/a4hmad1/artisan-pilot/actions/runs/43101588783) created the matrix jobs, but none started. GitHub's job annotation states: **"The job was not started because your account is locked due to a billing issue."** There are no hosted test results or release artifacts from that run.
+The complete source was published to `main`. GitHub Actions run [43104819669](https://github.com/a4hmad1/artisan-pilot/actions/runs/43104819669) created the matrix jobs, but none started. GitHub's job annotation states: **"The job was not started because your account is locked due to a billing issue."** There are no hosted test results or release artifacts from that run.
 
 The account owner must resolve the GitHub billing lock and rerun CI. Local checks remain the evidence listed above; hosted Windows/macOS/PHP matrix checks must not be represented as passed. The renamed package is published as a release candidate, rather than a stable release, while hosted platform checks remain unavailable.
